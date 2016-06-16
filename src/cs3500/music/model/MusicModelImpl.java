@@ -30,18 +30,40 @@ public final class MusicModelImpl implements MusicModel<Note> {
     this.tempo = 0;
   }
 
+  /**
+   *
+   */
+  private MusicModelImpl(Builder b) {
+    this.composition = b.compositionBuild;
+    this.setTempo(b.tempoBuild);
+  }
+
   public static final class Builder implements CompositionBuilder<MusicModel<Note>> {
-    private int bTempo = 0;
+    private List<Note> compositionBuild;
+    private int tempoBuild;
+
+    Builder() {
+      this.compositionBuild = new ArrayList<Note>();
+      this.tempoBuild = 0;
+    }
 
     @Override
-    CompositionBuilder<MusicModel<Note>> setTempo(int tempo) {
-      this.bTempo = tempo;
+    public MusicModel<Note> build() {
+      return new MusicModelImpl(this);
+    }
+
+    @Override
+    public CompositionBuilder<MusicModel<Note>> setTempo(int tempo) {
+      this.tempoBuild = tempo;
       return this;
     }
 
     @Override
-    CompositionBuilder<MusicModel<Note>> addNote(int start, int end, int pitch, int volume) {
-
+    public CompositionBuilder<MusicModel<Note>> addNote(int start, int end, int instrument,
+                                                 int pitch, int volume) {
+      this.compositionBuild.add(new Note(Pitch.integerToPitch(pitch % 12), (int) (Math.floor(pitch / 12)),
+              end - start, start, volume, instrument));
+      return this;
     }
   }
 
@@ -69,7 +91,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
     int extension = this.maxBeat();
     for (Note n : compositionToExtend) {
       Note noteCopy = new Note(n.getPitch(), n.getOctave(), n.getDuration(),
-              extension + n.getStartingBeat());
+              extension + n.getStartingBeat(), n.getVolume(), n.getInstrumentMIDI());
       this.composition.add(noteCopy);
     }
   }
@@ -226,7 +248,12 @@ public final class MusicModelImpl implements MusicModel<Note> {
     return view;
   }
 
+  @Override
   public int getTempo() { return this.tempo; }
 
+  /** :: NEW :: ... because music has a tempo
+   * EFFECT: set the tempo of this composition to the desired tempo
+   * @param tempo the desired tempo
+   */
   protected void setTempo(int tempo) { this.tempo = tempo; }
 }

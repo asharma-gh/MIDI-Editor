@@ -5,14 +5,18 @@ import java.util.Objects;
 /**
  * This class is used to represent a Note of music.
  */
-public class Note {
-  private Pitch pitch;
-  private int octave;
+public class Note implements INote {
+  private final Pitch pitch;
+  private final int octave;
   private int duration;
   private int startingBeat;
+  // NEW ADDITIONS: to represent instrument and volume.
+  private int instrumentMIDI;
+  private int volume;
 
   /**
-   * Construct a note based on the given paramets
+   * Construct a note based on the given parameters.
+   * Assigns default values to volume and instrumentMIDI to ensure capatability with old tests.
    * @param pitch the pitch of the note
    * @param octave the octave the note is being played at
    * @param duration the duration the note is played for
@@ -23,6 +27,27 @@ public class Note {
     this.octave = octave;
     this.duration = duration;
     this.startingBeat = startingBeat;
+    this.volume = 60;
+    this.instrumentMIDI = 0;
+  }
+
+  /** :: NEW ::
+   * Constructs a note with all parameters assigned.
+   * @param pitch the pitch of the note
+   * @param octave the octave the note is being played at
+   * @param duration the duration the note is played for
+   * @param startingBeat when the note should start being played
+   * @param volume the volume at which the note should be played
+   * @param instrument the instrument by which the instrument should be played
+   */
+  public Note(Pitch pitch, int octave, int duration,
+              int startingBeat, int volume, int instrument) {
+    this.pitch = pitch;
+    this.octave = octave;
+    this.duration = duration;
+    this.startingBeat = startingBeat;
+    this.volume = volume;
+    this.instrumentMIDI = instrument;
   }
 
   @Override
@@ -47,40 +72,36 @@ public class Note {
     return this.pitch.toString() + Integer.toString(this.octave);
   }
 
-
-  /**
-   * Returns the pitch of this note
-   * @return the pitch of this note
-   */
+  @Override
   public Pitch getPitch() { return this.pitch; }
 
-  /**
-   * Return the octave of this note
-   * @return the octave of this note
-   */
+  @Override
   public int getOctave() { return this.octave; }
 
-  /**
-   * Return the duration of this note
-   * @return the duration of this note
-   */
+  @Override
   public int getDuration() { return this.duration; }
 
-  /**
-   * Return when this note should start
-   * @return the starting beat for this note
-   */
+  @Override
   public int getStartingBeat() { return this.startingBeat; }
 
-  /**
-   * EFFECT: Updates the duration to a new specified duration
-   * @param newDuration the desired duration
-   */
+  @Override
+  public int getInstrumentMIDI() {
+    return this.instrumentMIDI;
+  }
+
+  @Override
+  public int getVolume() {
+    return this.volume;
+  }
+
+  @Override
   public void updateDuration(int newDuration) { this.duration = newDuration; }
 
-  /**
-   * EFFECT: Updates the starting beat of the note
-   * @param newStart the desired starting beat
-   */
+  @Override
   public void updateStartingBeat(int newStart) { this.startingBeat = newStart; }
+
+  @Override
+  public void updateInstrumentMIDI(int instrument) {
+    this.instrumentMIDI = instrument;
+  }
 }

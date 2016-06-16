@@ -54,4 +54,11 @@ public interface MusicModel<K> {
    * @return a string representation of the music composition.
    */
   String viewComposition();
+
+  /** :: NEW :: ... because music has a tempo
+   * The tempo of this composition
+   * @return the tempo of this composition
+   */
+  int getTempo();
+
 }
