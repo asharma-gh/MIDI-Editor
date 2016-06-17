@@ -12,6 +12,11 @@ import java.util.List;
 public class PitchPanel extends JPanel {
   private List<String> pitches;
 
+  /**
+   * To construct a PitchPanel
+   *
+   * @param pitches the pitches to display on the panel
+   */
   public PitchPanel(List<String> pitches) {
     super();
     this.pitches = pitches;

@@ -12,6 +12,9 @@ public class ConsoleView implements ICompositionView {
   private String view;
   private Appendable output;
 
+  /**
+   * Constructs a ConsoleView
+   */
   public ConsoleView() {
     this.view = "";
     this.output = System.out;
@@ -36,5 +39,10 @@ public class ConsoleView implements ICompositionView {
   public void buildComposition(MusicModelObserver<Note> model) {
     this.view = model.viewComposition();
 
+  }
+
+  @Override
+  public void updateScroll(int beat) {
+    throw new UnsupportedOperationException("nope");
   }
 }
