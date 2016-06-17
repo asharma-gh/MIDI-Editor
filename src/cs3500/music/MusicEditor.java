@@ -22,7 +22,6 @@ public class MusicEditor {
    * @throws InvalidMidiDataException
    */
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
-    //GuiViewFrame view = new GuiViewFrame();
     ICompositionView view = ViewBuilder.build(args[1]);
     FileInputStream file = new FileInputStream(args[0]);
     MusicModel<Note> model = MusicReader.parseFile(new BufferedReader(
