@@ -9,7 +9,7 @@ import cs3500.music.model.MusicModelObserver;
 import cs3500.music.model.Note;
 
 /**
- * Created by nbuqu on 6/17/2016.
+ * The class for representing a model in the console.
  */
 public class ConsoleView implements ICompositionView {
   private String view;

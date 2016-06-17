@@ -21,4 +21,9 @@ public class ControllerImpl implements ICompositionController {
     view.buildComposition(model);
   }
 
+  @Override
+  public void displayView() {
+    view.displayComposition();
+  }
+
 }

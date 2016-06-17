@@ -5,7 +5,8 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
 /**
- * Created by nbuqu on 6/17/2016.
+ * This class a mock sequence for Midi playback, functions as a normal sequence,
+ * but records when a track is created.
  */
 public class MidiMockSequence extends Sequence {
 

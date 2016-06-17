@@ -6,11 +6,18 @@ import cs3500.music.view.ICompositionView;
 
 /**
  * Basic interface for a composition controller.
- * We do not allow for model manipulation through the controller.
- * We are just trying to display a preconstructed model, not actively
- * change it.
+ * It allows for the composition to be built and viewed.
+ * No other methods necessary yet
  */
 public interface ICompositionController {
 
+  /**
+   * EFFECT: passes the model to the view so the view can generate a display
+   */
   void constructView();
+
+  /**
+   * EFFECT: call the view to display the composition
+   */
+  void displayView();
 }

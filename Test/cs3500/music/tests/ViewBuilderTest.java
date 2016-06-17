@@ -1,0 +1,30 @@
+package cs3500.music.tests;
+
+import org.junit.Test;
+
+import cs3500.music.view.ConsoleView;
+import cs3500.music.view.GuiViewFrame;
+import cs3500.music.view.ICompositionView;
+import cs3500.music.view.MidiViewImpl;
+import cs3500.music.view.ViewBuilder;
+
+import static org.junit.Assert.*;
+
+/**
+ * Test view builder.
+ */
+public class ViewBuilderTest {
+  ICompositionView view = null;
+
+  @Test
+  public void testBuilder() {
+    assertEquals(null, view);
+    view = ViewBuilder.build("midi");
+    assertEquals(true, view instanceof MidiViewImpl);
+    view = ViewBuilder.build("console");
+    assertEquals(true, view instanceof ConsoleView);
+    view = ViewBuilder.build("visual");
+    assertEquals(true, view instanceof GuiViewFrame);
+
+  }
+}

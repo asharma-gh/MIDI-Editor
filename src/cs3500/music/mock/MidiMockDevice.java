@@ -3,20 +3,10 @@ package cs3500.music.mock;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
-import javax.sound.midi.ControllerEventListener;
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MetaEventListener;
-import javax.sound.midi.MidiMessage;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Receiver;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.Sequencer;
-import javax.sound.midi.Track;
-import javax.sound.midi.Transmitter;
+import javax.sound.midi.*;
 
 /**
- * Created by nbuqu on 6/17/2016.
+ * A mock midi sequencer used to record actions made by the MidiView.
  */
 public class MidiMockDevice implements Sequencer {
   private Sequence sequence;
@@ -41,11 +31,17 @@ public class MidiMockDevice implements Sequencer {
     return false;
   }
 
+  /**
+   * Updates sequence, and records all of the messages
+   * that were sent to the track in the sequence.
+   * @param sequence the sequence to add to the mock sequencer.
+   * @throws InvalidMidiDataException
+   */
   @Override
   public void setSequence(Sequence sequence) throws InvalidMidiDataException {
     this.sequence = sequence;
 
-    MidiMockTracer.updateTrace("Sequencer set." + "\nSequence has MS length: "
+    MidiMockTracer.updateTrace("Sequence set." + "\nSequence has MS length: "
             + sequence.getMicrosecondLength()
             + ", resolution: " + sequence.getResolution() + "\n");
 
@@ -53,15 +49,18 @@ public class MidiMockDevice implements Sequencer {
       for (int n = 0; n < t.size(); n += 1) {
         MidiMessage m = t.get(n).getMessage();
         String status = Integer.toBinaryString(m.getStatus());
+        status = status.substring(0, 4);
         /** taken from:
          * https://www.midi.org/specifications/item/table-1-summary-of-midi-message
          **/
         switch (status) {
-          case "10110000": status = "Control change";
+          case "1011": status = "Control change";
             break;
-          case "10010000": status = "Note on";
+          case "1001": status = "Note on";
             break;
-          case "10000000": status = "Note off";
+          case "1000": status = "Note off";
+            break;
+          case "1100": status = "Program change";
             break;
           default: status = "End sequence";
         }

@@ -40,6 +40,10 @@ public final class MusicModelImpl implements MusicModel<Note> {
     this.setTempo(b.tempoBuild);
   }
 
+  /**
+   * Static builder class used to construct a MusicModel from text file input
+   * translated by MusicReader
+   */
   public static final class Builder implements CompositionBuilder<MusicModel<Note>> {
     private List<Note> compositionBuild;
     private int tempoBuild;
