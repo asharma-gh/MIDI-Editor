@@ -30,6 +30,19 @@ public class MidiViewImpl implements ICompositionView<MusicModel<Note>> {
     this.sequencer = seq;
   }
 
+  /**
+   * Conveience constructor for creating a mock object to test
+   * @param s mock sequencer
+   */
+  public MidiViewImpl(Sequencer s) {
+    try {
+      s.open();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    this.sequencer = s;
+  }
+
   public void playComposition() {
     this.sequencer.start();
     try {
