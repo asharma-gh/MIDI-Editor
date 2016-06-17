@@ -22,4 +22,9 @@ public interface ICompositionView {
    * @param model a read-only version of the model to be built.
    */
   void buildComposition(MusicModelObserver<Note> model);
+
+  /**
+   * Updates the view such that it fits the notes in the given beat
+   */
+  void updateScroll(int beat);
 }

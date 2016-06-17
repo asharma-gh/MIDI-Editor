@@ -106,4 +106,9 @@ public class MidiViewImpl implements ICompositionView {
       e.printStackTrace();
     }
   }
+
+  @Override
+  public void updateScroll(int beat) {
+    throw new UnsupportedOperationException("nope");
+  }
 }
