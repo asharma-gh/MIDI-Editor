@@ -42,7 +42,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
     private List<Note> compositionBuild;
     private int tempoBuild;
 
-    Builder() {
+    public Builder() {
       this.compositionBuild = new ArrayList<Note>();
       this.tempoBuild = 0;
     }
@@ -61,7 +61,8 @@ public final class MusicModelImpl implements MusicModel<Note> {
     @Override
     public CompositionBuilder<MusicModel<Note>> addNote(int start, int end, int instrument,
                                                  int pitch, int volume) {
-      this.compositionBuild.add(new Note(Pitch.integerToPitch(pitch % 12), (int) (Math.floor(pitch / 12)),
+      this.compositionBuild.add(new Note(Pitch.integerToPitch(pitch),
+              (int) (Math.floor(pitch / 12)) - 1,
               end - start, start, volume, instrument));
       return this;
     }
@@ -246,6 +247,17 @@ public final class MusicModelImpl implements MusicModel<Note> {
       beatSoFar += 1;
     }
     return view;
+  }
+
+  @Override
+  public List<Integer> getInstruments() {
+    List<Integer> instruments = new ArrayList<Integer>();
+    for (Note n : this.composition) {
+      if (!(instruments.contains(n.getInstrumentMIDI()))) {
+        instruments.add(n.getInstrumentMIDI());
+      }
+    }
+    return instruments;
   }
 
   @Override

@@ -55,6 +55,12 @@ public interface MusicModel<K> {
    */
   String viewComposition();
 
+  /**
+   * Finds all of the different instruments that are used in the composition.
+   * @return a list of all instruments used in the composition
+   */
+  List<Integer> getInstruments();
+
   /** :: NEW :: ... because music has a tempo
    * The tempo of this composition
    * @return the tempo of this composition
