@@ -30,7 +30,6 @@ public class NotePanel extends JPanel {
     this.pitches = pitches;
     this.numPitches = pitches.size();
     this.maxBeat = maxBeat;
-    System.out.println(maxBeat);
     this.setPreferredSize(new Dimension(maxBeat * 15, (numPitches) * 15));
   }
 
