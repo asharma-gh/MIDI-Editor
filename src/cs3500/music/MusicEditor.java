@@ -19,12 +19,12 @@ public class MusicEditor {
    */
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
     //GuiViewFrame view = new GuiViewFrame();
-    ICompositionView<MusicModel<Note>> view = ViewBuilder.build(args[1]);
+    ICompositionView view = ViewBuilder.build(args[1]);
     FileInputStream file = new FileInputStream(args[0]);
     MusicModel<Note> model = MusicReader.parseFile(new BufferedReader(
             new InputStreamReader(file)),
             new MusicModelImpl.Builder());
     view.buildComposition(model);
-    view.playComposition();
+    view.displayComposition();
   }
 }

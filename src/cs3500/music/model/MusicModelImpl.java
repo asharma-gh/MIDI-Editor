@@ -252,17 +252,6 @@ public final class MusicModelImpl implements MusicModel<Note> {
   }
 
   @Override
-  public List<Integer> getInstruments() {
-    List<Integer> instruments = new ArrayList<Integer>();
-    for (Note n : this.composition) {
-      if (!(instruments.contains(n.getInstrumentMIDI()))) {
-        instruments.add(n.getInstrumentMIDI());
-      }
-    }
-    return instruments;
-  }
-
-  @Override
   public int getTempo() { return this.tempo; }
 
   /** :: NEW :: ... because music has a tempo

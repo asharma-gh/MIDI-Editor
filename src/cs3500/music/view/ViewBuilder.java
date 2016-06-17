@@ -14,7 +14,7 @@ public class ViewBuilder {
 
   }
 
-  public static ICompositionView<MusicModel<Note>> build(String view) {
+  public static ICompositionView build(String view) {
     if (view.equals("console")) {
       return new ConsoleView();
     }

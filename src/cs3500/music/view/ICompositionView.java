@@ -1,14 +1,17 @@
 package cs3500.music.view;
 
+import java.util.List;
+
 import cs3500.music.model.MusicModel;
+import cs3500.music.model.MusicModelObserver;
 import cs3500.music.model.Note;
 
 /**
  * An interface for the different types of view for a given music model.
  */
-public interface ICompositionView<K> {
+public interface ICompositionView {
 
-  void playComposition();
+  void displayComposition();
 
-  void buildComposition(K comp);
+  void buildComposition(MusicModelObserver<Note> model);
 }

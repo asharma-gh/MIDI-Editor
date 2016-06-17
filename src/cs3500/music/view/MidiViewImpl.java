@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.sound.midi.*;
 
+import cs3500.music.model.INote;
+import cs3500.music.model.MusicModelObserver;
 import cs3500.music.model.NoteComparatorForInstrument;
 import cs3500.music.model.MusicModel;
 import cs3500.music.model.Note;
@@ -14,7 +16,7 @@ import cs3500.music.model.Note;
  * All of the notes in the composition are added to a sequencer and played.
  */
 
-public class MidiViewImpl implements ICompositionView<MusicModel<Note>> {
+public class MidiViewImpl implements ICompositionView {
   private final Sequencer sequencer;
 
   public MidiViewImpl() {
@@ -43,7 +45,8 @@ public class MidiViewImpl implements ICompositionView<MusicModel<Note>> {
     this.sequencer = s;
   }
 
-  public void playComposition() {
+  @Override
+  public void displayComposition() {
     this.sequencer.start();
     try {
       Thread.sleep(this.sequencer.getMicrosecondLength());
@@ -54,17 +57,21 @@ public class MidiViewImpl implements ICompositionView<MusicModel<Note>> {
     this.sequencer.close();
   }
 
+  private void setSequencerTempo(int tempo) {
+    this.sequencer.setTempoInMPQ(tempo);
+  }
+
   @Override
-  public void buildComposition(MusicModel<Note> comp) {
-    List<Note> composition = comp.getComposition();
+  public void buildComposition(MusicModelObserver<Note> model) {
+    List<Note> composition = model.getComposition();
     Collections.sort(composition, new NoteComparatorForInstrument());
+    this.setSequencerTempo(model.getTempo());
     if (composition.size() == 0) {
       throw new IllegalArgumentException("There is no composition to play!");
     }
     try {
       Sequence sequence = new Sequence(Sequence.PPQ, 16);
       Track track = sequence.createTrack();
-      sequencer.setTempoInMPQ(comp.getTempo());
       int channel = 0;
       int curInstr = composition.get(0).getInstrumentMIDI();
       MidiMessage instrChange = new ShortMessage(
