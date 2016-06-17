@@ -5,7 +5,8 @@ import cs3500.music.model.Note;
 import cs3500.music.view.ICompositionView;
 
 /**
- * Created by nbuqu on 6/17/2016.
+ * An implementation of the ICompositionController interface.
+ * Supports basic commands for translating the model to a view.
  */
 public class ControllerImpl implements ICompositionController {
   private MusicModel<Note> model;

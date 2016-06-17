@@ -1,10 +1,5 @@
 package cs3500.music.view;
 
-import java.util.IllegalFormatException;
-
-import cs3500.music.model.MusicModel;
-import cs3500.music.model.Note;
-
 /**
  * A View builder for the various types of composition views.
  */

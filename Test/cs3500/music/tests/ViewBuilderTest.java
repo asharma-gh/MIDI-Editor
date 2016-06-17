@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  * Test view builder.
  */
 public class ViewBuilderTest {
-  ICompositionView view = null;
+  private ICompositionView view = null;
 
   @Test
   public void testBuilder() {
@@ -26,5 +26,10 @@ public class ViewBuilderTest {
     view = ViewBuilder.build("visual");
     assertEquals(true, view instanceof GuiViewFrame);
 
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIncorrectInput() {
+    view = ViewBuilder.build("butts");
   }
 }
