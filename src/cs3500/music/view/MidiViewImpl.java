@@ -15,6 +15,9 @@ import cs3500.music.model.Note;
 public class MidiViewImpl implements ICompositionView {
   private final Sequencer sequencer;
 
+  /**
+   * Constructs a MidiView
+   */
   public MidiViewImpl() {
     Sequencer seq;
     try {
@@ -53,6 +56,11 @@ public class MidiViewImpl implements ICompositionView {
     this.sequencer.close();
   }
 
+  /**
+   * Sets the sequence tempo
+   *
+   * @param tempo the tempo of this sequence
+   */
   private void setSequencerTempo(int tempo) {
     this.sequencer.setTempoInMPQ(tempo);
   }

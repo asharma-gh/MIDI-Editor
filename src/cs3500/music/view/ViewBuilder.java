@@ -14,6 +14,12 @@ public class ViewBuilder {
 
   }
 
+  /**
+   * Constructs an ICompositionView based on the given param
+   *
+   * @param view the view to construct
+   * @return an ICompositionView.
+   */
   public static ICompositionView build(String view) {
     if (view.equals("console")) {
       return new ConsoleView();

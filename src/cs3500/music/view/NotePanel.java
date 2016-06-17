@@ -17,6 +17,13 @@ public class NotePanel extends JPanel {
   private int numPitches;
   private int maxBeat;
 
+  /**
+   * Construct a note panel
+   *
+   * @param pitches pitches to use to vertically align the notes
+   * @param notes   the notes to display
+   * @param maxBeat the maximum beat of the notes
+   */
   public NotePanel(List<String> pitches, List<Note> notes, int maxBeat) {
     super();
     this.notes = notes;
@@ -33,6 +40,10 @@ public class NotePanel extends JPanel {
     this.generateGrid(g);
   }
 
+  /**
+   * Generates the grid of notes, aligned to the pitches and labeled for each 16th beat.
+   * @param g the graphic onwhich everything is drawn on
+   */
   private void generateGrid(Graphics g) {
     for (int j = 0; j <= maxBeat; j++) {
       if (j % 16 == 0)

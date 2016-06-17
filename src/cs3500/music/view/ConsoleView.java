@@ -14,6 +14,9 @@ import cs3500.music.model.Note;
 public class ConsoleView implements ICompositionView {
   private String view;
 
+  /**
+   * Constructs a ConsoleView
+   */
   public ConsoleView() {
     this.view = "";
   }
