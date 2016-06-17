@@ -23,6 +23,7 @@ public interface ICompositionView {
 
   /**
    * Updates the view such that it fits the notes in the given beat
+   * @param position is the new horizontal position of the view
    */
-  void updateScroll(int beat);
+  void updateHorizontalScroll(int position);
 }

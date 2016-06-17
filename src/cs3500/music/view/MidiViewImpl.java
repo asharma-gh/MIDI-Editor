@@ -108,7 +108,7 @@ public class MidiViewImpl implements ICompositionView {
   }
 
   @Override
-  public void updateScroll(int beat) {
+  public void updateHorizontalScroll(int position) {
     throw new UnsupportedOperationException("Update scroll not supported for this view.");
   }
 }

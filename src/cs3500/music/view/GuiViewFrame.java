@@ -36,12 +36,11 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.getContentPane().add(scroll);
     this.setSize(1200, (this.pitches.size() + 5) * 15);
     this.setVisible(true);
-    updateScroll(1);
   }
 
   @Override
-  public void updateScroll(int beat) {
-    sb.setValue(beat * 40);
+  public void updateHorizontalScroll(int position) {
+    sb.setValue(position);
     this.repaint();
   }
   @Override
