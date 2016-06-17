@@ -1,11 +1,7 @@
 package cs3500.music.view;
 
 import java.awt.*;
-import java.awt.event.MouseListener; // Possibly of interest for handling mouse events
-
 import javax.swing.*;
-
-import cs3500.music.model.MusicModel;
 import cs3500.music.model.MusicModelObserver;
 import cs3500.music.model.Note;
 

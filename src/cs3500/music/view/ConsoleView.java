@@ -1,10 +1,7 @@
 package cs3500.music.view;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 
-import cs3500.music.model.MusicModel;
 import cs3500.music.model.MusicModelObserver;
 import cs3500.music.model.Note;
 
@@ -13,18 +10,31 @@ import cs3500.music.model.Note;
  */
 public class ConsoleView implements ICompositionView {
   private String view;
+  private Appendable output;
 
   public ConsoleView() {
     this.view = "";
+    this.output = System.out;
+  }
+
+  public ConsoleView(Appendable output) {
+    this.view = "";
+    this.output = output;
   }
 
   @Override
   public void displayComposition() {
-    System.out.println(this.view);
+    try {
+      this.output.append(this.view);
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void buildComposition(MusicModelObserver<Note> model) {
     this.view = model.viewComposition();
+
   }
 }

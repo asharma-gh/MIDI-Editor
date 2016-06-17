@@ -2,8 +2,6 @@ package cs3500.music.model;
 
 import java.util.Comparator;
 
-import cs3500.music.model.Note;
-
 /**
  * Comparator to sort notes by the instrument that plays them.
  */
