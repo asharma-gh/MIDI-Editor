@@ -1,6 +1,8 @@
 package cs3500.music;
 
+import cs3500.music.mock.MidiMockTracer;
 import cs3500.music.model.*;
+import cs3500.music.mock.MidiMockDevice;
 import cs3500.music.util.MusicReader;
 import cs3500.music.view.*;
 
@@ -20,11 +22,14 @@ public class MusicEditor {
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
     //GuiViewFrame view = new GuiViewFrame();
     ICompositionView view = ViewBuilder.build(args[1]);
+    MidiMockDevice mock = new MidiMockDevice();
+    ICompositionView mockView = new MidiViewImpl(mock);
     FileInputStream file = new FileInputStream(args[0]);
     MusicModel<Note> model = MusicReader.parseFile(new BufferedReader(
             new InputStreamReader(file)),
             new MusicModelImpl.Builder());
     view.buildComposition(model);
     view.displayComposition();
+    System.out.println(MidiMockTracer.getTrace());
   }
 }

@@ -2,13 +2,9 @@ package cs3500.music.view;
 
 import java.util.Collections;
 import java.util.List;
-
 import javax.sound.midi.*;
-
-import cs3500.music.model.INote;
 import cs3500.music.model.MusicModelObserver;
 import cs3500.music.model.NoteComparatorForInstrument;
-import cs3500.music.model.MusicModel;
 import cs3500.music.model.Note;
 
 /**

@@ -5,6 +5,8 @@ import java.util.List;
 /**
  * :: NEW ::
  * Serves as a read-only version of the music model.
+ * Implemented so that the view for a given model can be passed a model,
+ * while only maintaining read based priviledges of said model.
  */
 public interface MusicModelObserver<K> {
   /**
