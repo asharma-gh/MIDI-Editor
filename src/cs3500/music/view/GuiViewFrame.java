@@ -41,11 +41,12 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.pitches = model.pitchRangeAsList();
     this.notes = model.getComposition();
     JPanel mainPanel = new JPanel(new BorderLayout());
-    JScrollPane scrollNotes = new JScrollPane(new NotePanel(this.pitches, this.notes, model.maxBeat()));
-    mainPanel.add(scrollNotes, BorderLayout.CENTER);
+
+    mainPanel.add(new NotePanel(this.pitches, this.notes, model.maxBeat()), BorderLayout.CENTER);
     mainPanel.add(new PitchPanel(this.pitches), BorderLayout.WEST);
+    JScrollPane scroll = new JScrollPane(mainPanel);
     mainPanel.setVisible(true);
-    this.getContentPane().add(mainPanel);
+    this.getContentPane().add(scroll);
     this.setSize(1200, (this.pitches.size() + 5) * 15);
     this.setVisible(true);
 
