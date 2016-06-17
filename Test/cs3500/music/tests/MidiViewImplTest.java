@@ -237,4 +237,10 @@ public class MidiViewImplTest {
             "Playback started by sequencer.\n" +
             "Sequencer closed.\n", MidiMockTracer.getTrace());
   }
+
+  @Test (expected = UnsupportedOperationException.class)
+  public void testUpdateScroll() {
+    initData();
+    mview.updateScroll(0);
+  }
 }

@@ -286,4 +286,10 @@ public class ConsoleViewTest {
                  "9  |                                                         \n",
             bytes.toString());
   }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void testUpdateScroll() {
+    initData();
+    view.updateScroll(0);
+  }
 }
