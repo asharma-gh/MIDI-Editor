@@ -36,4 +36,19 @@ public interface MusicModelObserver<K> {
    * @return the tempo of this composition
    */
   int getTempo();
+
+  /**
+   * Gets a list containing the range of pitches used in this composition in their String
+   * representation.
+   *
+   * @return a list of strings that represent the pitch range for the composition.
+   */
+  List<String> pitchRangeAsList();
+
+  /**
+   * Find the last beat at which a note is played in this composition.
+   *
+   * @return the last beat a note is played.
+   */
+  int maxBeat();
 }

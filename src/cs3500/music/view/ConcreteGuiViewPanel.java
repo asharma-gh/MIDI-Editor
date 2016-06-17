@@ -20,6 +20,7 @@ public class ConcreteGuiViewPanel extends JPanel {
     // Look for more documentation about the Graphics class,
     // and methods on it that may be useful
     g.drawString("Hello World", 25, 25);
+
   }
 
 }

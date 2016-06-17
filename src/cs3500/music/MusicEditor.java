@@ -20,7 +20,6 @@ public class MusicEditor {
    * @throws InvalidMidiDataException
    */
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
-    //GuiViewFrame view = new GuiViewFrame();
     ICompositionView view = ViewBuilder.build(args[1]);
     MidiMockDevice mock = new MidiMockDevice();
     ICompositionView mockView = new MidiViewImpl(mock);

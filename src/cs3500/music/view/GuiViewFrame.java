@@ -16,26 +16,19 @@ import cs3500.music.model.Note;
 public class GuiViewFrame extends javax.swing.JFrame
         implements ICompositionView {
 
-  private final JPanel displayPanel; // You may want to refine this to a subtype of JPanel
+  private java.util.List<String> pitches;
+  private java.util.List<Note> notes;
 
   /**
    * Creates new GuiView
    */
 
   public GuiViewFrame() {
-    this.displayPanel = new ConcreteGuiViewPanel();
     this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    this.getContentPane().add(displayPanel);
-    this.pack();
   }
 
-  public void initialize(){
-    this.setVisible(true);
-  }
+  public void initialize() {
 
-  @Override
-  public Dimension getPreferredSize(){
-    return new Dimension(100, 100);
   }
 
   @Override
@@ -45,6 +38,17 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void buildComposition(MusicModelObserver<Note> model) {
+    this.pitches = model.pitchRangeAsList();
+    this.notes = model.getComposition();
+    JPanel mainPanel = new JPanel(new BorderLayout());
+    mainPanel.add(new NotePanel(this.pitches, this.notes, model.maxBeat()), BorderLayout.CENTER);
+    mainPanel.add(new PitchPanel(this.pitches), BorderLayout.WEST);
+    mainPanel.setVisible(true);
+    this.getContentPane().add(mainPanel);
+    this.setSize(1200, 500);
+    this.setVisible(true);
+
+
 
   }
 }

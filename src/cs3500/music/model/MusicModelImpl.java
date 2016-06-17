@@ -10,6 +10,7 @@ import cs3500.music.util.CompositionBuilder;
  * This is an implementation of the MusicModel, parametrized over my implemnentation of a Note.
  * It implements all of the desired features specified by the MusicModel interface.
  */
+// CHANGELOG: Made pitchRangeAsList public, added to interface
 public final class MusicModelImpl implements MusicModel<Note> {
   private List<Note> composition;
   // :: NEW :: a composition now has a tempo.
@@ -117,11 +118,9 @@ public final class MusicModelImpl implements MusicModel<Note> {
     return compositionCopy;
   }
 
-  /**
-   * Find the last beat at which a note is played in this composition.
-   * @return the last beat a note is played.
-   */
-  private int maxBeat() {
+
+  @Override
+  public int maxBeat() {
     int maxSoFar = 0;
     for (Note n : this.composition) {
       if (n.getStartingBeat() + n.getDuration() > maxSoFar) {
@@ -178,7 +177,8 @@ public final class MusicModelImpl implements MusicModel<Note> {
    * String representation.
    * @return a list of strings that represent the pitch range for the composition.
    */
-  private List<String> pitchRangeAsList() {
+  @Override
+  public List<String> pitchRangeAsList() {
     List<String> rangeAsList = new ArrayList<String>();
     int lowestOctave = findLowestTone().getOctave();
     Pitch lowestPitch = findLowestTone().getPitch();
