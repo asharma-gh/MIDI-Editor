@@ -1,6 +1,8 @@
 package cs3500.music.model;
 
 /**
+ * :: NEW ::
+ * Previously, a note was a concrete class. Interface added.
  * An interface for representing a Note.
  */
 public interface INote {

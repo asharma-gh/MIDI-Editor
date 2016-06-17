@@ -10,7 +10,7 @@ public class Note implements INote {
   private final int octave;
   private int duration;
   private int startingBeat;
-  // NEW ADDITIONS: to represent instrument and volume.
+  // :: NEW :: to represent instrument and volume.
   private int instrumentMIDI;
   private int volume;
 

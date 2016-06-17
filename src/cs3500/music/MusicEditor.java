@@ -1,32 +1,30 @@
 package cs3500.music;
 
-import cs3500.music.model.MusicModel;
-import cs3500.music.model.MusicModelImpl;
-import cs3500.music.model.Note;
+import cs3500.music.model.*;
 import cs3500.music.util.MusicReader;
-import cs3500.music.view.GuiViewFrame;
-import cs3500.music.view.ICompositionView;
-import cs3500.music.view.MidiViewImpl;
+import cs3500.music.view.*;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
+import java.io.*;
 import javax.sound.midi.InvalidMidiDataException;
 
-
+/**
+ * A class used for playing the midiview / displaying gui view
+ */
 public class MusicEditor {
+  /**
+   * The main() event ...
+   * @param args should take two arguments, first the desired file, second the desired view type.
+   * @throws IOException
+   * @throws InvalidMidiDataException
+   */
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
     //GuiViewFrame view = new GuiViewFrame();
-    ICompositionView midiView = new MidiViewImpl();
-    FileInputStream file = new FileInputStream(
-            "C:\\MusicFiles\\zoot-zl.txt");
+    ICompositionView<MusicModel<Note>> view = ViewBuilder.build(args[1]);
+    FileInputStream file = new FileInputStream(args[0]);
     MusicModel<Note> model = MusicReader.parseFile(new BufferedReader(
             new InputStreamReader(file)),
             new MusicModelImpl.Builder());
-    midiView.buildComposition(model);
-    midiView.playComposition();
-    // You probably need to connect these views to your model, too...
+    view.buildComposition(model);
+    view.playComposition();
   }
 }

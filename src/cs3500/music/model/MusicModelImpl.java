@@ -12,6 +12,7 @@ import cs3500.music.util.CompositionBuilder;
  */
 public final class MusicModelImpl implements MusicModel<Note> {
   private List<Note> composition;
+  // :: NEW :: a composition now has a tempo.
   private int tempo;
   /**
    * Constructs a MusicModelImpl with a blank slate of notes.
@@ -31,7 +32,8 @@ public final class MusicModelImpl implements MusicModel<Note> {
   }
 
   /**
-   *
+   * private Builder constructor the the music model.
+   * @param b the builder
    */
   private MusicModelImpl(Builder b) {
     this.composition = b.compositionBuild;

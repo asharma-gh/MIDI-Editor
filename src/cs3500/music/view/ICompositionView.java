@@ -4,11 +4,11 @@ import cs3500.music.model.MusicModel;
 import cs3500.music.model.Note;
 
 /**
- * Created by nbuqu on 6/16/2016.
+ * An interface for the different types of view for a given music model.
  */
-public interface ICompositionView {
+public interface ICompositionView<K> {
 
   void playComposition();
 
-  void buildComposition(MusicModel<Note> comp);
+  void buildComposition(K comp);
 }

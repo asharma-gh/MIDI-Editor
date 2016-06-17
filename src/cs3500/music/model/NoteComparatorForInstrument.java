@@ -1,4 +1,4 @@
-package cs3500.music;
+package cs3500.music.model;
 
 import java.util.Comparator;
 
@@ -15,7 +15,7 @@ public class NoteComparatorForInstrument implements Comparator<Note> {
 
   @Override
   public int compare(Note n1, Note n2) {
-    return n2.getInstrumentMIDI() - n1.getInstrumentMIDI();
+    return n1.getInstrumentMIDI() - n2.getInstrumentMIDI();
   }
 
 }
