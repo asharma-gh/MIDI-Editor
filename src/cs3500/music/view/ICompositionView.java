@@ -22,7 +22,7 @@ public interface ICompositionView {
   void buildComposition(MusicModelObserver<Note> model);
 
   /**
-   * Updates the view such that it fits the notes in the given beat
+   * Updates the view such that it pans based on the given value
    * @param position is the new horizontal position of the view
    */
   void updateHorizontalScroll(int position);
