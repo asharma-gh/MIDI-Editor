@@ -56,7 +56,8 @@ public class NotePanel extends JPanel {
       }
     }
     for (Note n : notes) {
-      int yPos = this.pitches.size() - (this.pitches.indexOf(n.getPitch().toString() + n.getOctave()));
+      int yPos = this.pitches.size() -
+              (this.pitches.indexOf(n.getPitch().toString() + n.getOctave()));
       int xPos = n.getStartingBeat();
       g.setColor(Color.BLACK);
       g.fillRect(xPos * 15, yPos * 15, 15, 15);
