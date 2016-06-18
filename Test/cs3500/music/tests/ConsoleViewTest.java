@@ -288,8 +288,8 @@ public class ConsoleViewTest {
   }
 
   @Test(expected = UnsupportedOperationException.class)
-  public void testUpdateScroll() {
+  public void testUpdateHorizontalScroll() {
     initData();
-    view.updateScroll(0);
+    view.updateHorizontalScroll(0);
   }
 }

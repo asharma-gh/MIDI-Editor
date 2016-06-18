@@ -239,8 +239,8 @@ public class MidiViewImplTest {
   }
 
   @Test (expected = UnsupportedOperationException.class)
-  public void testUpdateScroll() {
+  public void testUpdateHorizontalScroll() {
     initData();
-    mview.updateScroll(0);
+    mview.updateHorizontalScroll(0);
   }
 }
