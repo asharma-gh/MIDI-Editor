@@ -5,7 +5,7 @@ package cs3500.music.view;
  */
 public class ViewBuilder {
 
-  ViewBuilder() {
+  public ViewBuilder() {
 
   }
 
