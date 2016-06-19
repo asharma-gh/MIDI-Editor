@@ -13,6 +13,12 @@ public class ControllerImpl implements ICompositionController<Note> {
   private MusicModel<Note> model;
   private ICompositionView<Note> view;
 
+  /**
+   * Constructs this controller
+   *
+   * @param model the model to use for this controller
+   * @param view  the view to use for this controller
+   */
   public ControllerImpl(MusicModel<Note> model, ICompositionView<Note> view) {
     this.model = model;
     this.view = view;
