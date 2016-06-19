@@ -62,7 +62,7 @@ public class NotePanel extends JPanel {
       g.setColor(Color.BLACK);
       g.fillRect(xPos * 15, yPos * 15, 15, 15);
       xPos += 1;
-      g.setColor(new Color(150, 255 - yPos * 15 % 255, 255 - yPos * 15 % 255));
+      g.setColor(Color.GREEN);
       for (int i = xPos; i < xPos + n.getDuration() - 1; i++) {
         g.fillRect(i * 15, yPos * 15, 15, 15);
       }
