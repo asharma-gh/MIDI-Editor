@@ -3,7 +3,7 @@ package cs3500.music.tests;
 import org.junit.Test;
 
 import cs3500.music.model.MusicModel;
-import cs3500.music.model.MusicModelBuilder;
+import cs3500.music.model.MusicModelImpl;
 import cs3500.music.model.Note;
 import cs3500.music.model.Pitch;
 
@@ -24,8 +24,8 @@ public class MusicModelImplTest {
   Note aSharpThree;
 
   private void initData() {
-    model = MusicModelBuilder.build();
-    modelTwo = MusicModelBuilder.build();
+    model = new MusicModelImpl.Builder().build();
+    modelTwo = new MusicModelImpl.Builder().build();
     bOne = new Note(Pitch.B, 1, 5, 0);
     bOneC = new Note(Pitch.B, 1, 5, 0);
     bTwo = new Note(Pitch.B, 2, 5, 0);
