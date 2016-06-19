@@ -3,6 +3,8 @@ package cs3500.music.view;
 import java.util.Collections;
 import java.util.List;
 import javax.sound.midi.*;
+
+import cs3500.music.model.INote;
 import cs3500.music.model.MusicModelObserver;
 import cs3500.music.model.NoteComparatorForInstrument;
 import cs3500.music.model.Note;
@@ -12,7 +14,7 @@ import cs3500.music.model.Note;
  * All of the notes in the composition are added to a sequencer and played.
  */
 
-public class MidiViewImpl implements ICompositionView<Note> {
+public class MidiViewImpl implements ICompositionView<INote> {
   private final Sequencer sequencer;
 
   /**
@@ -66,8 +68,8 @@ public class MidiViewImpl implements ICompositionView<Note> {
   }
 
   @Override
-  public void buildComposition(MusicModelObserver<Note> model) {
-    List<Note> composition = model.getComposition();
+  public void buildComposition(MusicModelObserver<INote> model) {
+    List<INote> composition = model.getComposition();
     Collections.sort(composition, new NoteComparatorForInstrument());
     this.setSequencerTempo(model.getTempo());
     if (composition.size() == 0) {
@@ -82,7 +84,7 @@ public class MidiViewImpl implements ICompositionView<Note> {
               ShortMessage.PROGRAM_CHANGE, channel, curInstr, 0);
       track.add(new MidiEvent(instrChange,
               (long) (sequence.getResolution() * composition.get(0).getStartingBeat())));
-      for (Note n : composition) {
+      for (INote n : composition) {
         long startBeat = (long) (sequence.getResolution() * n.getStartingBeat());
         long stopBeat = (long) (sequence.getResolution() *
                 (n.getStartingBeat() + n.getDuration()));

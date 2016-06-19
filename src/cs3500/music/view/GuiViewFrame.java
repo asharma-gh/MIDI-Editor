@@ -7,6 +7,7 @@ import java.util.*;
 
 import javax.swing.*;
 
+import cs3500.music.model.INote;
 import cs3500.music.model.MusicModelObserver;
 import cs3500.music.model.Note;
 
@@ -14,10 +15,10 @@ import cs3500.music.model.Note;
  * To represent the main GUI View
  */
 public class GuiViewFrame extends javax.swing.JFrame
-        implements ICompositionView<Note> {
+        implements ICompositionView<INote> {
 
   private java.util.List<String> pitches;
-  private java.util.List<Note> notes;
+  private java.util.List<INote> notes;
   private int maxBeats;
   private JPanel mainPanel;
   private JScrollBar sb;
@@ -50,7 +51,7 @@ public class GuiViewFrame extends javax.swing.JFrame
   }
 
   @Override
-  public void buildComposition(MusicModelObserver<Note> model) {
+  public void buildComposition(MusicModelObserver<INote> model) {
     this.pitches = model.pitchRangeAsList();
     this.notes = model.getComposition();
     this.maxBeats = model.maxBeat();
@@ -60,7 +61,7 @@ public class GuiViewFrame extends javax.swing.JFrame
    * To represent the notes visualized
    */
   private class NotePanel extends JPanel {
-    private java.util.List<Note> notes;
+    private java.util.List<INote> notes;
     private java.util.List<String> pitches;
     private int numPitches;
     private int maxBeat;
@@ -72,7 +73,7 @@ public class GuiViewFrame extends javax.swing.JFrame
      * @param notes   the notes to display
      * @param maxBeat the maximum beat of the notes
      */
-    private NotePanel(java.util.List<String> pitches, java.util.List<Note> notes, int maxBeat) {
+    private NotePanel(java.util.List<String> pitches, java.util.List<INote> notes, int maxBeat) {
       super();
       this.notes = notes;
       this.pitches = pitches;
@@ -104,7 +105,7 @@ public class GuiViewFrame extends javax.swing.JFrame
           }
         }
       }
-      for (Note n : notes) {
+      for (INote n : notes) {
         int yPos = this.pitches.size() -
                 (this.pitches.indexOf(n.getPitch().toString() + n.getOctave()));
         int xPos = n.getStartingBeat();
