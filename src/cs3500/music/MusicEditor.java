@@ -31,4 +31,5 @@ public class MusicEditor {
     controller.constructView();
     controller.displayView();
   }
+
 }
