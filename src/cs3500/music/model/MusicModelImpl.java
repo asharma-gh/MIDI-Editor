@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import cs3500.music.util.CompositionBuilder;
 
 /**
- * This is an implementation of the MusicModel, parametrized over my implemnentation of a Note.
- * It implements all of the desired features specified by the MusicModel interface.
+ * This is an implementation of the MusicModel, parametrized over my implemnentation of a Note. It
+ * implements all of the desired features specified by the MusicModel interface.
  */
 // CHANGELOG: Made pitchRangeAsList public, added to interface
 public final class MusicModelImpl implements MusicModel<Note> {
   private List<Note> composition;
   // :: NEW :: a composition now has a tempo.
   private int tempo;
+
   /**
    * Constructs a MusicModelImpl with a blank slate of notes.
    */
@@ -25,6 +27,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
 
   /**
    * Constructs a MusicModelImpl with a given sheet of notes
+   *
    * @param composition the notes for this composition
    */
   public MusicModelImpl(List<Note> composition) {
@@ -34,45 +37,12 @@ public final class MusicModelImpl implements MusicModel<Note> {
 
   /**
    * private Builder constructor the the music model.
+   *
    * @param b the builder
    */
   private MusicModelImpl(Builder b) {
     this.composition = b.compositionBuild;
     this.setTempo(b.tempoBuild);
-  }
-
-  /**
-   * Static builder class used to construct a MusicModel from text file input
-   * translated by MusicReader
-   */
-  public static final class Builder implements CompositionBuilder<MusicModel<Note>> {
-    private List<Note> compositionBuild;
-    private int tempoBuild;
-
-    public Builder() {
-      this.compositionBuild = new ArrayList<Note>();
-      this.tempoBuild = 0;
-    }
-
-    @Override
-    public MusicModel<Note> build() {
-      return new MusicModelImpl(this);
-    }
-
-    @Override
-    public CompositionBuilder<MusicModel<Note>> setTempo(int tempo) {
-      this.tempoBuild = tempo;
-      return this;
-    }
-
-    @Override
-    public CompositionBuilder<MusicModel<Note>> addNote(int start, int end, int instrument,
-                                                 int pitch, int volume) {
-      this.compositionBuild.add(new Note(Pitch.integerToPitch(pitch),
-              (int) (Math.floor(pitch / 12)) - 1,
-              end - start, start, volume, instrument));
-      return this;
-    }
   }
 
   @Override
@@ -84,7 +54,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
   public void removeNote(Note note) {
     if (!this.composition.remove(note)) {
       throw new IllegalArgumentException("Note " + note.toString() + " does not exist in " +
-      "the composition! Can not be removed.");
+              "the composition! Can not be removed.");
     }
   }
 
@@ -122,7 +92,6 @@ public final class MusicModelImpl implements MusicModel<Note> {
     return compositionCopy;
   }
 
-
   @Override
   public int maxBeat() {
     int maxSoFar = 0;
@@ -136,6 +105,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
 
   /**
    * Finds the lowest tone note in the composition
+   *
    * @return the lowest tone note
    */
   private Note findLowestTone() {
@@ -144,6 +114,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
 
   /**
    * Finds the highest tone note in the composition
+   *
    * @return the highest tone note
    */
   private Note findHighestTone() {
@@ -151,8 +122,9 @@ public final class MusicModelImpl implements MusicModel<Note> {
   }
 
   /**
-   * Gets a String representation of the pitch range for the composition, attempting to
-   * space each pitch relatively centered to a 5 character column.
+   * Gets a String representation of the pitch range for the composition, attempting to space each
+   * pitch relatively centered to a 5 character column.
+   *
    * @return a String that has all pitches from the lowest to highest in the composition.
    */
   private String getPitchRange() {
@@ -164,11 +136,9 @@ public final class MusicModelImpl implements MusicModel<Note> {
     for (String s : pitchRangeAsList()) {
       if (s.length() == 2) {
         pitchRange = pitchRange + "  " + s + " ";
-      }
-      else if (s.length() == 3) {
+      } else if (s.length() == 3) {
         pitchRange = pitchRange + " " + s + " ";
-      }
-      else {
+      } else {
         pitchRange = pitchRange + " " + s;
       }
     }
@@ -177,8 +147,9 @@ public final class MusicModelImpl implements MusicModel<Note> {
   }
 
   /**
-   * Gets a list containing the range of pitches used in this composition in their
-   * String representation.
+   * Gets a list containing the range of pitches used in this composition in their String
+   * representation.
+   *
    * @return a list of strings that represent the pitch range for the composition.
    */
   @Override
@@ -188,9 +159,9 @@ public final class MusicModelImpl implements MusicModel<Note> {
     Pitch lowestPitch = findLowestTone().getPitch();
     List<Pitch> allPitches = Arrays.asList(Pitch.values());
     boolean pitchSeen = false;
-    while((lowestOctave != findHighestTone().getOctave()) ||
+    while ((lowestOctave != findHighestTone().getOctave()) ||
             (!lowestPitch.equals(findHighestTone().getPitch()))) {
-      for(Pitch p : allPitches) {
+      for (Pitch p : allPitches) {
         if (lowestPitch.equals(p)) {
           pitchSeen = true;
         }
@@ -199,7 +170,9 @@ public final class MusicModelImpl implements MusicModel<Note> {
           lowestPitch = p;
           rangeAsList.add(toBeAdded);
           if (lowestPitch.equals(findHighestTone().getPitch()) &&
-                  (lowestOctave == findHighestTone().getOctave())) { break; }
+                  (lowestOctave == findHighestTone().getOctave())) {
+            break;
+          }
         }
       }
       if (lowestOctave != findHighestTone().getOctave()) {
@@ -256,11 +229,51 @@ public final class MusicModelImpl implements MusicModel<Note> {
   }
 
   @Override
-  public int getTempo() { return this.tempo; }
+  public int getTempo() {
+    return this.tempo;
+  }
 
-  /** :: NEW :: ... because music has a tempo
-   * EFFECT: set the tempo of this composition to the desired tempo
+  /**
+   * :: NEW :: ... because music has a tempo EFFECT: set the tempo of this composition to the
+   * desired tempo
+   *
    * @param tempo the desired tempo
    */
-  protected void setTempo(int tempo) { this.tempo = tempo; }
+  protected void setTempo(int tempo) {
+    this.tempo = tempo;
+  }
+
+  /**
+   * Static builder class used to construct a MusicModel from text file input translated by
+   * MusicReader
+   */
+  public static final class Builder implements CompositionBuilder<MusicModel<Note>> {
+    private List<Note> compositionBuild;
+    private int tempoBuild;
+
+    public Builder() {
+      this.compositionBuild = new ArrayList<Note>();
+      this.tempoBuild = 0;
+    }
+
+    @Override
+    public MusicModel<Note> build() {
+      return new MusicModelImpl(this);
+    }
+
+    @Override
+    public CompositionBuilder<MusicModel<Note>> setTempo(int tempo) {
+      this.tempoBuild = tempo;
+      return this;
+    }
+
+    @Override
+    public CompositionBuilder<MusicModel<Note>> addNote(int start, int end, int instrument,
+                                                        int pitch, int volume) {
+      this.compositionBuild.add(new Note(Pitch.integerToPitch(pitch),
+              (int) (Math.floor(pitch / 12)) - 1,
+              end - start, start, volume, instrument));
+      return this;
+    }
+  }
 }

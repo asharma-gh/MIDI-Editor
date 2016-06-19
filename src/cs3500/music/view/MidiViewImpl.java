@@ -2,6 +2,7 @@ package cs3500.music.view;
 
 import java.util.Collections;
 import java.util.List;
+
 import javax.sound.midi.*;
 
 import cs3500.music.model.INote;
@@ -10,8 +11,8 @@ import cs3500.music.model.NoteComparatorForInstrument;
 import cs3500.music.model.Note;
 
 /**
- * This class is used as a Midi implementation of the composition view.
- * All of the notes in the composition are added to a sequencer and played.
+ * This class is used as a Midi implementation of the composition view. All of the notes in the
+ * composition are added to a sequencer and played.
  */
 
 public class MidiViewImpl implements ICompositionView<INote> {
@@ -25,8 +26,7 @@ public class MidiViewImpl implements ICompositionView<INote> {
     try {
       seq = MidiSystem.getSequencer();
       seq.open();
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       seq = null;
       e.printStackTrace();
     }
@@ -35,6 +35,7 @@ public class MidiViewImpl implements ICompositionView<INote> {
 
   /**
    * Conveience constructor for creating a mock object to test
+   *
    * @param s mock sequencer
    */
   public MidiViewImpl(Sequencer s) {
@@ -51,8 +52,7 @@ public class MidiViewImpl implements ICompositionView<INote> {
     this.sequencer.start();
     try {
       Thread.sleep(this.sequencer.getMicrosecondLength());
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
     this.sequencer.close();
@@ -103,8 +103,7 @@ public class MidiViewImpl implements ICompositionView<INote> {
                 ShortMessage.NOTE_OFF, channel, pitchToMidiValue, 64), stopBeat));
       }
       this.sequencer.setSequence(sequence);
-    }
-    catch (InvalidMidiDataException e) {
+    } catch (InvalidMidiDataException e) {
       e.printStackTrace();
     }
   }

@@ -15,14 +15,15 @@ public interface ICompositionView<K> {
   void displayComposition();
 
   /**
-   * EFFECT: builds the view for a composition through a
-   * read only model.
+   * EFFECT: builds the view for a composition through a read only model.
+   *
    * @param model a read-only version of the model to be built.
    */
   void buildComposition(MusicModelObserver<K> model);
 
   /**
    * Updates the view such that it pans based on the given value
+   *
    * @param position is the new horizontal position of the view
    */
   void updateHorizontalScroll(int position);

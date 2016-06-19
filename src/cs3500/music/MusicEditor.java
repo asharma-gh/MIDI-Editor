@@ -9,6 +9,7 @@ import cs3500.music.util.MusicReader;
 import cs3500.music.view.*;
 
 import java.io.*;
+
 import javax.sound.midi.InvalidMidiDataException;
 
 /**
@@ -17,19 +18,17 @@ import javax.sound.midi.InvalidMidiDataException;
 public class MusicEditor {
   /**
    * The main() event ...
+   *
    * @param args should take two arguments, first the desired file, second the desired view type.
-   * @throws IOException
-   * @throws InvalidMidiDataException
    */
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
-    ICompositionView view = ViewBuilder.build(args[1]);
+    ICompositionView<Note> view = ViewBuilder.build(args[1]);
     FileInputStream file = new FileInputStream(args[0]);
     MusicModel<Note> model = MusicReader.parseFile(new BufferedReader(
-            new InputStreamReader(file)),
+                    new InputStreamReader(file)),
             new MusicModelImpl.Builder());
-    ICompositionController controller = new ControllerImpl(model, view);
+    ICompositionController<Note> controller = new ControllerImpl(model, view);
     controller.constructView();
     controller.displayView();
   }
-
 }

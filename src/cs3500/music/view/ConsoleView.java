@@ -30,8 +30,7 @@ public class ConsoleView implements ICompositionView<INote> {
   public void displayComposition() {
     try {
       this.output.append(this.view);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }

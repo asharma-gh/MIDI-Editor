@@ -3,6 +3,7 @@ package cs3500.music.mock;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+
 import javax.sound.midi.*;
 
 /**
@@ -32,10 +33,10 @@ public class MidiMockDevice implements Sequencer {
   }
 
   /**
-   * Updates sequence, and records all of the messages
-   * that were sent to the track in the sequence.
+   * Updates sequence, and records all of the messages that were sent to the track in the
+   * sequence.
+   *
    * @param sequence the sequence to add to the mock sequencer.
-   * @throws InvalidMidiDataException
    */
   @Override
   public void setSequence(Sequence sequence) throws InvalidMidiDataException {
@@ -54,15 +55,20 @@ public class MidiMockDevice implements Sequencer {
          * https://www.midi.org/specifications/item/table-1-summary-of-midi-message
          **/
         switch (status) {
-          case "1011": status = "Control change";
+          case "1011":
+            status = "Control change";
             break;
-          case "1001": status = "Note on";
+          case "1001":
+            status = "Note on";
             break;
-          case "1000": status = "Note off";
+          case "1000":
+            status = "Note off";
             break;
-          case "1100": status = "Program change";
+          case "1100":
+            status = "Program change";
             break;
-          default: status = "End sequence";
+          default:
+            status = "End sequence";
         }
         MidiMockTracer.updateTrace("MidiMessage \"" + status + "\" at beat "
                 + (t.get(n).getTick() / sequence.getResolution()) +
@@ -72,13 +78,13 @@ public class MidiMockDevice implements Sequencer {
   }
 
   @Override
-  public void setSequence(InputStream stream) throws IOException, InvalidMidiDataException {
-
+  public Sequence getSequence() {
+    return this.sequence;
   }
 
   @Override
-  public Sequence getSequence() {
-    return this.sequence;
+  public void setSequence(InputStream stream) throws IOException, InvalidMidiDataException {
+
   }
 
   @Override
@@ -142,13 +148,13 @@ public class MidiMockDevice implements Sequencer {
   }
 
   @Override
-  public void setTempoFactor(float factor) {
-
+  public float getTempoFactor() {
+    return 0;
   }
 
   @Override
-  public float getTempoFactor() {
-    return 0;
+  public void setTempoFactor(float factor) {
+
   }
 
   @Override
@@ -182,13 +188,13 @@ public class MidiMockDevice implements Sequencer {
   }
 
   @Override
-  public void setMasterSyncMode(SyncMode sync) {
-
+  public SyncMode getMasterSyncMode() {
+    return null;
   }
 
   @Override
-  public SyncMode getMasterSyncMode() {
-    return null;
+  public void setMasterSyncMode(SyncMode sync) {
+
   }
 
   @Override
@@ -197,13 +203,13 @@ public class MidiMockDevice implements Sequencer {
   }
 
   @Override
-  public void setSlaveSyncMode(SyncMode sync) {
-
+  public SyncMode getSlaveSyncMode() {
+    return null;
   }
 
   @Override
-  public SyncMode getSlaveSyncMode() {
-    return null;
+  public void setSlaveSyncMode(SyncMode sync) {
+
   }
 
   @Override
@@ -252,17 +258,12 @@ public class MidiMockDevice implements Sequencer {
   }
 
   @Override
-  public void setLoopStartPoint(long tick) {
-
-  }
-
-  @Override
   public long getLoopStartPoint() {
     return 0;
   }
 
   @Override
-  public void setLoopEndPoint(long tick) {
+  public void setLoopStartPoint(long tick) {
 
   }
 
@@ -272,13 +273,18 @@ public class MidiMockDevice implements Sequencer {
   }
 
   @Override
-  public void setLoopCount(int count) {
+  public void setLoopEndPoint(long tick) {
 
   }
 
   @Override
   public int getLoopCount() {
     return 0;
+  }
+
+  @Override
+  public void setLoopCount(int count) {
+
   }
 
   @Override
