@@ -8,7 +8,7 @@ import cs3500.music.model.Note;
 /**
  * The class for representing a model in the console.
  */
-public class ConsoleView implements ICompositionView {
+public class ConsoleView implements ICompositionView<Note> {
   private String view;
   private Appendable output;
 

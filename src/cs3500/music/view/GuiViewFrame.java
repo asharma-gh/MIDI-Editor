@@ -10,7 +10,7 @@ import cs3500.music.model.Note;
  * To represent the main GUI View
  */
 public class GuiViewFrame extends javax.swing.JFrame
-        implements ICompositionView {
+        implements ICompositionView<Note> {
 
   private java.util.List<String> pitches;
   private java.util.List<Note> notes;

@@ -12,7 +12,7 @@ import cs3500.music.model.Note;
  * All of the notes in the composition are added to a sequencer and played.
  */
 
-public class MidiViewImpl implements ICompositionView {
+public class MidiViewImpl implements ICompositionView<Note> {
   private final Sequencer sequencer;
 
   /**

@@ -7,7 +7,7 @@ import cs3500.music.model.Note;
 /**
  * An interface for the different types of view for a given music model.
  */
-public interface ICompositionView {
+public interface ICompositionView<K> {
 
   /**
    * EFFECT: display the composition based on this view type.
@@ -19,7 +19,7 @@ public interface ICompositionView {
    * read only model.
    * @param model a read-only version of the model to be built.
    */
-  void buildComposition(MusicModelObserver<Note> model);
+  void buildComposition(MusicModelObserver<K> model);
 
   /**
    * Updates the view such that it pans based on the given value
