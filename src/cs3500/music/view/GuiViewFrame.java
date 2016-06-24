@@ -52,8 +52,8 @@ public class GuiViewFrame extends javax.swing.JFrame
   @Override
   public void updateHorizontalScroll(int pos) {
     notePanel.setShift(pos);
-    if (pos % 304 == 0) {
-      sb.setValue(pos % 304);
+    if (pos % 960 == 0) {
+      sb.setValue(pos);
     }
     this.repaint();
   }
