@@ -238,9 +238,4 @@ public class MidiViewImplTest {
             "Sequencer closed.\n", MidiMockTracer.getTrace());
   }
 
-  @Test (expected = UnsupportedOperationException.class)
-  public void testUpdateHorizontalScroll() {
-    initData();
-    mview.updateHorizontalScroll(0);
-  }
 }

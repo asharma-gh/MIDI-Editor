@@ -41,8 +41,4 @@ public class ConsoleView implements ICompositionView<INote> {
 
   }
 
-  @Override
-  public void updateHorizontalScroll(int position) {
-    throw new UnsupportedOperationException("Update scroll not supported for this view.");
-  }
 }

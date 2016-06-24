@@ -21,10 +21,4 @@ public interface ICompositionView<K> {
    */
   void buildComposition(MusicModelObserver<K> model);
 
-  /**
-   * Updates the view such that it pans based on the given value
-   *
-   * @param position is the new horizontal position of the view
-   */
-  void updateHorizontalScroll(int position);
 }

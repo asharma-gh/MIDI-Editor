@@ -14,15 +14,17 @@ import cs3500.music.model.Note;
 /**
  * To represent the main GUI View
  */
+// CHANGELOG: Now implements GuiView instead.
 public class GuiViewFrame extends javax.swing.JFrame
-        implements ICompositionView<INote> {
+        implements GuiView<INote> {
 
   private java.util.List<String> pitches;
   private java.util.List<INote> notes;
   private int maxBeats;
   private JPanel mainPanel;
   private JScrollBar sb;
-
+  private NotePanel notePanel;
+  private int scroll;
   /**
    * Creates new GuiView
    */
@@ -33,20 +35,30 @@ public class GuiViewFrame extends javax.swing.JFrame
   @Override
   public void displayComposition() {
     mainPanel = new JPanel(new BorderLayout());
-    mainPanel.add(new NotePanel(this.pitches, this.notes, maxBeats), BorderLayout.CENTER);
+    this.notePanel = new NotePanel(this.pitches, this.notes, maxBeats);
+    mainPanel.add(this.notePanel, BorderLayout.CENTER);
     mainPanel.add(new PitchPanel(this.pitches), BorderLayout.WEST);
     JScrollPane scroll = new JScrollPane(mainPanel);
-    scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
+    // scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
     sb = scroll.getHorizontalScrollBar();
     mainPanel.setVisible(true);
     this.getContentPane().add(scroll);
     this.setSize(1200, (this.pitches.size() + 5) * 15);
     this.setVisible(true);
+    for (int i = 0; i < 10000; i++) {
+      this.updateHorizontalScroll();
+    }
+
+
   }
 
   @Override
-  public void updateHorizontalScroll(int position) {
-    sb.setValue(position);
+  public void updateHorizontalScroll() {
+    scroll++;
+    notePanel.setShift(scroll);
+    if (scroll % 304 == 0) {
+      sb.setValue(scroll * 15 % 304);
+    }
     this.repaint();
   }
 
@@ -55,6 +67,8 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.pitches = model.pitchRangeAsList();
     this.notes = model.getComposition();
     this.maxBeats = model.maxBeat();
+    this.scroll = 1;
+
   }
 
   /**
@@ -65,7 +79,8 @@ public class GuiViewFrame extends javax.swing.JFrame
     private java.util.List<String> pitches;
     private int numPitches;
     private int maxBeat;
-
+    private Graphics panelWithNoLine;
+    private int shift;
     /**
      * Construct a note panel
      *
@@ -80,12 +95,18 @@ public class GuiViewFrame extends javax.swing.JFrame
       this.numPitches = pitches.size();
       this.maxBeat = maxBeat;
       this.setPreferredSize(new Dimension(maxBeat * 15, (numPitches) * 15));
+      this.shift = 1;
     }
 
     @Override
     public void paintComponent(Graphics g) {
       super.paintComponent(g);
       this.generateGrid(g);
+    }
+
+    protected void setShift(int x) {
+      this.shift = x;
+      this.repaint();
     }
 
     /**
@@ -117,7 +138,9 @@ public class GuiViewFrame extends javax.swing.JFrame
           g.fillRect(i * 15, yPos * 15, 15, 15);
         }
       }
-
+      this.panelWithNoLine = g.create();
+      g.setColor(Color.RED);
+      g.drawLine(shift + 15, 15, shift + 15, (this.pitches.size() + 1) * 15);
     }
   }
 

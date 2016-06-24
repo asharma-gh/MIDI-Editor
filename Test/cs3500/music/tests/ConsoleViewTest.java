@@ -287,9 +287,5 @@ public class ConsoleViewTest {
             bytes.toString());
   }
 
-  @Test(expected = UnsupportedOperationException.class)
-  public void testUpdateHorizontalScroll() {
-    initData();
-    view.updateHorizontalScroll(0);
-  }
+
 }

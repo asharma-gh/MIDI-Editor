@@ -30,5 +30,6 @@ public class MusicEditor {
     ICompositionController<Note> controller = new ControllerImpl(model, view);
     controller.constructView();
     controller.displayView();
+
   }
 }
