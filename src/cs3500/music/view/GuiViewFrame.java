@@ -2,6 +2,7 @@ package cs3500.music.view;
 
 import java.awt.*;
 import java.awt.List;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener; // Possibly of interest for handling mouse events
 import java.util.*;
 
@@ -38,24 +39,33 @@ public class GuiViewFrame extends javax.swing.JFrame
     mainPanel.add(this.notePanel, BorderLayout.CENTER);
     mainPanel.add(new PitchPanel(this.pitches), BorderLayout.WEST);
     JScrollPane scroll = new JScrollPane(mainPanel);
-    // scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
+    scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
     sb = scroll.getHorizontalScrollBar();
     mainPanel.setVisible(true);
     this.getContentPane().add(scroll);
     this.setSize(1200, (this.pitches.size() + 5) * 15);
     this.setVisible(true);
 
-
-
   }
+
 
   @Override
   public void updateHorizontalScroll(int pos) {
-    notePanel.setShift(pos);
-    if (pos % 960 == 0) {
+    if (pos % (this.getWidth() - 45) == 0) {
       sb.setValue(pos);
     }
     this.repaint();
+  }
+
+  @Override
+  public void updateLine(int pos) {
+    notePanel.setShift(pos);
+    this.repaint();
+  }
+
+  @Override
+  public int getWidth() {
+    return this.maxBeats * 15;
   }
 
   @Override
@@ -63,7 +73,26 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.pitches = model.pitchRangeAsList();
     this.notes = model.getComposition();
     this.maxBeats = model.maxBeat();
+  }
 
+  @Override
+  public void setKeyListener(KeyListener kl) {
+    this.addKeyListener(kl);
+  }
+
+  @Override
+  public void setMouseListener(MouseListener ml) {
+    this.addMouseListener(ml);
+  }
+
+  @Override
+  public void resumePlayback() {
+    throw new UnsupportedOperationException("Resuming playback is not supported for GUI view.");
+  }
+
+  @Override
+  public void pausePlayback() {
+    throw new UnsupportedOperationException("Pausing playback is not supported for GUI view.");
   }
 
   /**

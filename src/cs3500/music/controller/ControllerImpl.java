@@ -1,6 +1,5 @@
 package cs3500.music.controller;
 
-import cs3500.music.model.INote;
 import cs3500.music.model.MusicModel;
 import cs3500.music.model.Note;
 import cs3500.music.view.ICompositionView;
@@ -12,6 +11,7 @@ import cs3500.music.view.ICompositionView;
 public class ControllerImpl implements ICompositionController<Note> {
   private MusicModel<Note> model;
   private ICompositionView<Note> view;
+
 
   /**
    * Constructs this controller

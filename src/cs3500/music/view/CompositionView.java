@@ -1,12 +1,15 @@
 package cs3500.music.view;
 
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+
 import cs3500.music.model.INote;
 import cs3500.music.model.MusicModelObserver;
 
 /**
  * To represent a view which combined the midi view and the gui view.
  */
-public class CompositionView implements ICompositionView<INote> {
+public class CompositionView implements GuiView<INote> {
   private GuiViewFrame gui;
   private MidiViewImpl midi;
 
@@ -23,8 +26,9 @@ public class CompositionView implements ICompositionView<INote> {
     int scrollAmt = 0;
     while (midi.sequencer.isRunning()) {
       while (scrollAmt < (int) midi.sequencer.getTickPosition() / 16 * 15) {
-        gui.updateHorizontalScroll((int) midi.sequencer.getTickPosition() / 16 * 15);
-        scrollAmt++;
+        this.updateHorizontalScroll(scrollAmt);
+        this.updateLine(scrollAmt);
+        scrollAmt += 1;
       }
     }
   }
@@ -37,4 +41,38 @@ public class CompositionView implements ICompositionView<INote> {
 
   }
 
+  @Override
+  public void updateHorizontalScroll(int pos) {
+    this.gui.updateHorizontalScroll(pos);
+  }
+
+  @Override
+  public void updateLine(int pos) {
+    this.gui.updateLine(pos);
+  }
+
+  @Override
+  public int getWidth() {
+    return this.gui.getWidth();
+  }
+
+  @Override
+  public void setKeyListener(KeyListener kl) {
+    this.gui.addKeyListener(kl);
+  }
+
+  @Override
+  public void setMouseListener(MouseListener ml) {
+    this.gui.addMouseListener(ml);
+  }
+
+  @Override
+  public void pausePlayback() {
+    this.midi.sequencer.stop();
+  }
+
+  @Override
+  public void resumePlayback() {
+    this.midi.sequencer.start();
+  }
 }

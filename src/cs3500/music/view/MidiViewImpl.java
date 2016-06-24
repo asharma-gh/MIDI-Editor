@@ -50,14 +50,6 @@ public class MidiViewImpl implements ICompositionView<INote> {
   @Override
   public void displayComposition() {
     this.sequencer.start();
-    /*
-    try {
-      Thread.sleep(this.sequencer.getMicrosecondLength());
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    */
-    //this.sequencer.close();
   }
 
   /**
