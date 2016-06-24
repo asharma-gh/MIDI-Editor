@@ -20,8 +20,12 @@ public class CompositionView implements ICompositionView<INote> {
   public void displayComposition() {
     this.gui.displayComposition();
     this.midi.displayComposition();
+    int scrollAmt = 0;
     while (midi.sequencer.isRunning()) {
-      gui.updateHorizontalScroll((int) (midi.sequencer.getTickPosition() / 16) * 15);
+      while (scrollAmt < (int) midi.sequencer.getTickPosition() / 16 * 15) {
+        gui.updateHorizontalScroll((int) midi.sequencer.getTickPosition() / 16 * 15);
+        scrollAmt++;
+      }
     }
   }
 

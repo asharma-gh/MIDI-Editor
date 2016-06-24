@@ -74,7 +74,6 @@ public class GuiViewFrame extends javax.swing.JFrame
     private java.util.List<String> pitches;
     private int numPitches;
     private int maxBeat;
-    private Graphics panelWithNoLine;
     private int shift;
     /**
      * Construct a note panel
@@ -133,7 +132,6 @@ public class GuiViewFrame extends javax.swing.JFrame
           g.fillRect(i * 15, yPos * 15, 15, 15);
         }
       }
-      this.panelWithNoLine = g.create();
       g.setColor(Color.RED);
       g.drawLine(shift, 15, shift, (this.pitches.size() + 1) * 15);
     }
