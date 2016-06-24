@@ -14,9 +14,9 @@ import cs3500.music.model.Note;
  * This class is used as a Midi implementation of the composition view. All of the notes in the
  * composition are added to a sequencer and played.
  */
-
+// made sequencer protected
 public class MidiViewImpl implements ICompositionView<INote> {
-  private final Sequencer sequencer;
+  protected final Sequencer sequencer;
 
   /**
    * Constructs a MidiView
@@ -50,12 +50,14 @@ public class MidiViewImpl implements ICompositionView<INote> {
   @Override
   public void displayComposition() {
     this.sequencer.start();
+    /*
     try {
       Thread.sleep(this.sequencer.getMicrosecondLength());
     } catch (Exception e) {
       e.printStackTrace();
     }
-    this.sequencer.close();
+    */
+    //this.sequencer.close();
   }
 
   /**

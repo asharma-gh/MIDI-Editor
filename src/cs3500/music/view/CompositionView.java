@@ -19,7 +19,13 @@ public class CompositionView implements ICompositionView<INote> {
   @Override
   public void displayComposition() {
     this.gui.displayComposition();
+    System.out.println("fck2");
+
     this.midi.displayComposition();
+    System.out.println("fck");
+    while (midi.sequencer.isRunning()) {
+      gui.updateHorizontalScroll((int) midi.sequencer.getTickPosition() - 65);
+    }
   }
 
   @Override

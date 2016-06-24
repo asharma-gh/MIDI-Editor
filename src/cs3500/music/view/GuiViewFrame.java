@@ -24,7 +24,6 @@ public class GuiViewFrame extends javax.swing.JFrame
   private JPanel mainPanel;
   private JScrollBar sb;
   private NotePanel notePanel;
-  private int scroll;
   /**
    * Creates new GuiView
    */
@@ -45,19 +44,16 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.getContentPane().add(scroll);
     this.setSize(1200, (this.pitches.size() + 5) * 15);
     this.setVisible(true);
-    for (int i = 0; i < 10000; i++) {
-      this.updateHorizontalScroll();
-    }
+
 
 
   }
 
   @Override
-  public void updateHorizontalScroll() {
-    scroll++;
-    notePanel.setShift(scroll);
-    if (scroll % 304 == 0) {
-      sb.setValue(scroll * 15 % 304);
+  public void updateHorizontalScroll(int pos) {
+    notePanel.setShift(pos);
+    if (pos % 304 == 0) {
+      sb.setValue(pos % 304);
     }
     this.repaint();
   }
@@ -67,7 +63,6 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.pitches = model.pitchRangeAsList();
     this.notes = model.getComposition();
     this.maxBeats = model.maxBeat();
-    this.scroll = 1;
 
   }
 
@@ -95,7 +90,7 @@ public class GuiViewFrame extends javax.swing.JFrame
       this.numPitches = pitches.size();
       this.maxBeat = maxBeat;
       this.setPreferredSize(new Dimension(maxBeat * 15, (numPitches) * 15));
-      this.shift = 1;
+
     }
 
     @Override
@@ -140,7 +135,7 @@ public class GuiViewFrame extends javax.swing.JFrame
       }
       this.panelWithNoLine = g.create();
       g.setColor(Color.RED);
-      g.drawLine(shift + 15, 15, shift + 15, (this.pitches.size() + 1) * 15);
+      g.drawLine(shift, 15, shift, (this.pitches.size() + 1) * 15);
     }
   }
 

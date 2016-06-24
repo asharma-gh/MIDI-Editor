@@ -10,5 +10,5 @@ public interface GuiView<K> extends ICompositionView<K> {
   /**
    * Updates the view such that it pans based on the given value
    */
-  void updateHorizontalScroll();
+  void updateHorizontalScroll(int pos);
 }
