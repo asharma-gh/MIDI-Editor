@@ -53,10 +53,11 @@ public class GuiViewFrame extends javax.swing.JFrame
     scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
     sb = scroll.getHorizontalScrollBar();
     sby = scroll.getVerticalScrollBar();
-    mainPanel.setVisible(true);
     this.getContentPane().add(scroll);
     this.setSize(1200, (this.pitches.size() + 5) * 15);
     this.setVisible(true);
+    mainPanel.setVisible(true);
+
 
 
   }
@@ -68,7 +69,6 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void updateScroll() {
-    System.out.println(this.notePanel.shift);
     if (this.notePanel.shift % (this.sb.getWidth()) - 45 < 15 && this.notePanel.shift > this.sb.getWidth()) {
       sb.setValue(this.notePanel.shift);
     }
@@ -129,8 +129,13 @@ public class GuiViewFrame extends javax.swing.JFrame
   }
 
   @Override
-  public void setNotes(java.util.List<INote> notes) {
+  public void recompose(MusicModelObserver<INote> model, java.util.List<INote> notes) {
+    this.model = model;
     this.notePanel.setNotes(notes);
+    this.notePanel.removeAll();
+    this.notes = notes;
+    this.notePanel.shift = 0;
+    this.jumpToStart();
     this.notePanel.repaint();
   }
   /**
@@ -142,7 +147,6 @@ public class GuiViewFrame extends javax.swing.JFrame
     private int numPitches;
     private int maxBeat;
     protected int shift;
-    private int counter = 0;
     /**
      * Construct a note panel
      *
@@ -159,12 +163,13 @@ public class GuiViewFrame extends javax.swing.JFrame
       this.setPreferredSize(new Dimension(maxBeat * 15, (numPitches) * 15));
       this.setFocusable(true);
       this.shift = 0;
-      this.counter = 0;
 
     }
 
     protected void setNotes(java.util.List<INote> notes) {
+      System.out.println(this.notes.size() - notes.size());
       this.notes = notes;
+      this.repaint();
     }
     @Override
     public void paintComponent(Graphics g) {

@@ -18,6 +18,7 @@ public class CompositionView implements GuiView<INote> {
   private GuiViewFrame gui;
   private MidiViewImpl midi;
   private int progress;
+  private Timer t;
 
   public CompositionView(GuiViewFrame gui, MidiViewImpl midi) {
     this.gui = gui;
@@ -40,7 +41,7 @@ public class CompositionView implements GuiView<INote> {
   public void buildComposition(MusicModelObserver<INote> model) {
     this.gui.buildComposition(model);
     this.midi.buildComposition(model);
-    Timer t = new Timer(midi.sequencer.getSequence().getResolution(), new SynchronizeLineAction());
+    t = new Timer(midi.sequencer.getSequence().getResolution(), new SynchronizeLineAction());
     t.start();
 
   }
@@ -84,7 +85,6 @@ public class CompositionView implements GuiView<INote> {
       this.midi.sequencer.start();
       this.beginPlayback();
       this.gui.updatePause();
-      System.out.println("unpaused");
     }
   }
 
@@ -104,8 +104,10 @@ public class CompositionView implements GuiView<INote> {
   }
 
   @Override
-  public void setNotes(List<INote> notes) {
-    this.gui.setNotes(notes);
+  public void recompose(MusicModelObserver<INote> model, List<INote> notes) {
+    this.midi.buildComposition(model);
+    t = new Timer(midi.sequencer.getSequence().getResolution(), new SynchronizeLineAction());
+    this.gui.recompose(model, notes);
   }
 
   @Override

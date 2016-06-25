@@ -50,7 +50,6 @@ public class CompositeController implements ICompositionController<INote> {
 
   @Override
   public void removeNote(int x, int y) {
-    System.out.println(model.getComposition());
     int xPos = ((x + 15 - (x % 15)) / 15) - 1;
     int yPos = y + 15 - (y % 15);
     int counter = (model.pitchRangeAsList().size() + 1) * 15;
@@ -68,8 +67,6 @@ public class CompositeController implements ICompositionController<INote> {
       }
     }
 
-    System.out.println(model.getComposition());
-    this.view.setNotes(this.model.getComposition());
-    this.view.buildComposition(this.model);
+    this.view.recompose(this.model, model.getComposition());
   }
 }

@@ -4,6 +4,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.List;
 
+import cs3500.music.model.MusicModelObserver;
+
 /**
  * This interface represents additional functionality for the GUI view.
  *
@@ -28,9 +30,9 @@ public interface GuiView<K> extends ICompositionView<K> {
   void resumePlayback();
 
   /**
-   * Sets the notes to display in this GUI
+   * recomposes the gui based on the given notes
    */
-  void setNotes(List<K> notes);
+  void recompose(MusicModelObserver<K> model, List<K> notes);
 
 
   void scrollX(int x);
@@ -47,4 +49,5 @@ public interface GuiView<K> extends ICompositionView<K> {
    * @param pos the new position of the red line
    */
   void linePosition(int pos);
+
 }
