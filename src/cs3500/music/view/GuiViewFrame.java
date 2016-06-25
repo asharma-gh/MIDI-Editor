@@ -34,10 +34,6 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void displayComposition() {
-    mainPanel = new JPanel(new BorderLayout());
-    this.notePanel = new NotePanel(this.pitches, this.notes, maxBeats);
-    mainPanel.add(this.notePanel, BorderLayout.CENTER);
-    mainPanel.add(new PitchPanel(this.pitches), BorderLayout.WEST);
     JScrollPane scroll = new JScrollPane(mainPanel);
     scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
     sb = scroll.getHorizontalScrollBar();
@@ -70,10 +66,20 @@ public class GuiViewFrame extends javax.swing.JFrame
   }
 
   @Override
+  public void refresh() {
+    this.mainPanel.repaint();
+    this.notePanel.repaint();
+  }
+
+  @Override
   public void buildComposition(MusicModelObserver<INote> model) {
     this.pitches = model.pitchRangeAsList();
     this.notes = model.getComposition();
     this.maxBeats = model.maxBeat();
+    mainPanel = new JPanel(new BorderLayout());
+    this.notePanel = new NotePanel(this.pitches, this.notes, maxBeats);
+    mainPanel.add(this.notePanel, BorderLayout.CENTER);
+    mainPanel.add(new PitchPanel(this.pitches), BorderLayout.WEST);
   }
 
   @Override
@@ -84,6 +90,7 @@ public class GuiViewFrame extends javax.swing.JFrame
   @Override
   public void setMouseListener(MouseListener ml) {
     this.addMouseListener(ml);
+    this.notePanel.addMouseListener(ml);
   }
 
   @Override
