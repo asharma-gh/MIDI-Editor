@@ -6,7 +6,7 @@ import cs3500.music.controller.ICompositionController;
 import cs3500.music.model.INote;
 
 /**
- * Created by nbuqu on 6/25/2016.
+ * A runnable class used to add a note to the panel.
  */
 public class AddNote implements Runnable {
   private ICompositionController<INote> controller;
@@ -19,8 +19,9 @@ public class AddNote implements Runnable {
 
   @Override
   public void run() {
-    System.out.println("happens");
-    NoteBuilderFrame nb = new NoteBuilderFrame();
-    nb.buildFrame(controller);
+    if (!this.view.isPlaying()) {
+      NoteBuilderFrame nb = new NoteBuilderFrame();
+      nb.buildFrame(controller);
+    }
   }
 }

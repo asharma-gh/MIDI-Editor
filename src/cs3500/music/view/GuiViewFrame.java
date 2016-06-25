@@ -51,8 +51,10 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void displayComposition() {
-    this.scroll = new JScrollPane(mainPanel);
+    this.scroll = new JScrollPane(mainPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     this.scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
+    this.scroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
     sb = scroll.getHorizontalScrollBar();
     sby = scroll.getVerticalScrollBar();
     this.getContentPane().add(scroll);
@@ -60,9 +62,6 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.setVisible(true);
     mainPanel.setVisible(true);
     this.setFocusable(true);
-
-
-
   }
 
   @Override
@@ -95,7 +94,6 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.notes = model.getComposition();
     this.maxBeats = model.maxBeat();
     this.mainPanel = new JPanel(new BorderLayout());
-    this.scroll = new JScrollPane(mainPanel);
     this.notePanel = new NotePanel(this.pitches, this.notes, maxBeats);
     this.pitchPanel = new PitchPanel(this.pitches);
     mainPanel.add(this.notePanel, BorderLayout.CENTER);
@@ -130,7 +128,8 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void scrollY(int y) {
-    sby.setValue(sby.getValue() + y);
+    this.scroll.getVerticalScrollBar().setValue(this.scroll.getVerticalScrollBar().getValue() + y);
+    //sby.setValue(sby.getValue() + y);
   }
 
   @Override
@@ -145,9 +144,11 @@ public class GuiViewFrame extends javax.swing.JFrame
     }
     this.pitchPanel.setPitches(model.pitchRangeAsList());
     this.notePanel.setPitches(model.pitchRangeAsList());
+    this.notePanel.setMaxBeat(model.maxBeat());
+    this.mainPanel.setPreferredSize(new Dimension(1200, (this.pitches.size() + 5) * 15));
+    this.revalidate();
     this.pitchPanel.repaint();
     this.notePanel.repaint();
-
   }
 
   @Override
@@ -187,8 +188,15 @@ public class GuiViewFrame extends javax.swing.JFrame
       this.repaint();
     }
 
+    protected void setMaxBeat(int beat) {
+      this.maxBeat = beat;
+      this.repaint();
+    }
+
     protected void setPitches(java.util.List<String> pitches) {
       this.pitches = pitches;
+      this.numPitches = pitches.size();
+      this.repaint();
     }
 
     @Override

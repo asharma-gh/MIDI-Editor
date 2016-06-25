@@ -14,7 +14,7 @@ import cs3500.music.model.INote;
 import cs3500.music.model.Pitch;
 
 /**
- * Created by nbuqu on 6/25/2016.
+ * A class used to createa a JFrame that allows the user to build a note.
  */
 public class NoteBuilderFrame extends javax.swing.JFrame {
   private JPanel mainPanel;
@@ -38,6 +38,24 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
     this.noteVars = new int[6];
   }
 
+ /* private boolean validBuild() {
+    try {
+      Integer.parseInt(octave.getText());
+      Integer.parseInt(duration.getText());
+      Integer.parseInt(startBeat.getText());
+      Integer.parseInt(volume.getText());
+      Integer.parseInt(instrument.getText());
+      return Integer.parseInt(octave.getText()) >= 0 &&
+    }
+    catch (Exception e) {
+      return false;
+    }
+  }*/
+
+  /**
+   *
+   * @param controller
+   */
   public void buildFrame(ICompositionController<INote> controller) {
     String[] pitches = new String[Pitch.values().length];
     this.mainPanel = new JPanel();
