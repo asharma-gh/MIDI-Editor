@@ -27,7 +27,7 @@ public class CompositeControllerTest {
   private void initData() {
     this.view = new GuiViewFrame();
     this.model = new MusicModelImpl.Builder().build();
-    this.model.addNote(new Note(Pitch.B, 1, 5, 0));
+    this.model.addNote(new Note(Pitch.C, 1, 5, 0));
 
     this.controller = new CompositeController(model, view);
     this.controller.constructView();
@@ -35,20 +35,40 @@ public class CompositeControllerTest {
   }
 
   @Test
-  public void removeNote() throws Exception {
-
-  }
-
-  @Test
-  public void testAddNote() {
+  public void testAddNoteIncreasesSizeOfComposition() {
     initData();
     int[] noteVals = {0, 1, 2, 3, 4, 5};
     assertTrue(model.getComposition().size() == 1);
     this.controller.addNote(noteVals);
     assertTrue(model.getComposition().size() == 2);
+
+  }
+
+  @Test
+  public void testAddNoteMakesGivenNote() {
+    initData();
+    int[] noteVals = {0, 1, 2, 3, 4, 5};
+    this.controller.addNote(noteVals);
     assertTrue(model.getComposition().contains(new Note(Pitch.integerToPitch(0), 1, 2, 3, 4, 5)));
+  }
 
+  @Test
+  public void testRemoveNoteDecreasesSizeOfComposition() {
+    initData();
+    int[] noteVals = {11, 1, 2, 0, 4, 5};
+    this.controller.addNote(noteVals);
+    this.controller.removeNote(0, 15);
+    assertTrue(model.getComposition().size() == 1);
+  }
 
+  @Test
+  public void testRemoveNoteRemovesNoteFromModel() {
+    initData();
+    int[] noteVals = {11, 1, 2, 0, 4, 5};
+    this.controller.addNote(noteVals);
+    assertTrue(model.getComposition().contains(new Note(Pitch.integerToPitch(11), 1, 2, 0, 4, 5)));
+    this.controller.removeNote(0, 15);
+    assertFalse(model.getComposition().contains(new Note(Pitch.integerToPitch(11), 1, 2, 0, 4, 5)));
   }
 
 }
