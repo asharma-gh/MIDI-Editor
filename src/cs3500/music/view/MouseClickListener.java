@@ -29,7 +29,9 @@ public class MouseClickListener implements MouseListener {
 
   @Override
   public void mouseClicked(MouseEvent e) {
-    this.controller.removeNote(e.getX(), e.getY());
+    if (e.getButton() == MouseEvent.BUTTON1) {
+      this.controller.removeNote(e.getX(), e.getY());
+    }
   }
 
   @Override

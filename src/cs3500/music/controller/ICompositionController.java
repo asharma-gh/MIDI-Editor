@@ -23,6 +23,8 @@ public interface ICompositionController<K> {
 
   /**
    * instructs the model to removes the note at the given coordinates
+   * @param x the x coordinate of the note
+   * @param y the y coordinate of the note
    */
   void removeNote(int x, int y);
 
