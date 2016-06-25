@@ -1,8 +1,12 @@
 package cs3500.music.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.List;
+
+import javax.swing.*;
 
 import cs3500.music.model.INote;
 import cs3500.music.model.MusicModelObserver;
@@ -30,17 +34,16 @@ public class CompositionView implements GuiView<INote> {
 
   private void beginPlayback() {
     this.gui.setFocusable(true);
-    while (midi.sequencer.isRunning()) {
       this.gui.gibSequencerPls((int) (midi.sequencer.getTickPosition() * 15) / 16);
-    }
+
   }
 
   @Override
   public void buildComposition(MusicModelObserver<INote> model) {
     this.gui.buildComposition(model);
     this.midi.buildComposition(model);
-    this.gui.gibSequencerPls((int) (midi.sequencer.getTickPosition() * 15) / 16);
-
+    Timer t = new Timer(midi.sequencer.getSequence().getResolution(), new SynchronizeLineAction());
+    t.start();
 
   }
 
@@ -110,5 +113,13 @@ public class CompositionView implements GuiView<INote> {
   @Override
   public void setNotes(List<INote> notes) {
     this.gui.setNotes(notes);
+  }
+
+  private class SynchronizeLineAction implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      CompositionView.this.gui.gibSequencerPls((int) (midi.sequencer.getTickPosition() * 15) / 16);
+    }
   }
 }
