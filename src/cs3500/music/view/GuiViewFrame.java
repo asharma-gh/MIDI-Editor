@@ -135,7 +135,9 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.notePanel.removeAll();
     this.notes = notes;
     this.notePanel.shift = 0;
-    this.jumpToStart();
+    if (!isPaused) {
+      this.jumpToStart();
+    }
     this.notePanel.repaint();
   }
   /**

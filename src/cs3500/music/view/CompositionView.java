@@ -19,7 +19,7 @@ public class CompositionView implements GuiView<INote> {
   private MidiViewImpl midi;
   private int progress;
   private Timer t;
-
+  private boolean noteDeleted = false;
   public CompositionView(GuiViewFrame gui, MidiViewImpl midi) {
     this.gui = gui;
     this.midi = midi;
@@ -86,6 +86,10 @@ public class CompositionView implements GuiView<INote> {
       this.beginPlayback();
       this.gui.updatePause();
     }
+    if (noteDeleted) {
+      this.gui.jumpToStart();
+    }
+    noteDeleted = false;
   }
 
   @Override
@@ -107,7 +111,9 @@ public class CompositionView implements GuiView<INote> {
   public void recompose(MusicModelObserver<INote> model, List<INote> notes) {
     this.midi.buildComposition(model);
     t = new Timer(midi.sequencer.getSequence().getResolution(), new SynchronizeLineAction());
+    t.start();
     this.gui.recompose(model, notes);
+    this.noteDeleted = true;
   }
 
   @Override
