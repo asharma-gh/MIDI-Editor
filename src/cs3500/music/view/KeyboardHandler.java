@@ -8,7 +8,7 @@ import java.util.Map;
 import static java.awt.event.KeyEvent.VK_P;
 
 /**
- * A keyoard handler made to only handle events specified in it's map fields
+ * A keyboard handler made to only handle events specified in it's map fields
  */
 public class KeyboardHandler implements KeyListener {
   private Map<Integer, Runnable> typedEvent;

@@ -30,7 +30,7 @@ public class MusicEditor {
     MusicModel<INote> model = MusicReader.parseFile(new BufferedReader(
                     new InputStreamReader(file)),
             new MusicModelImpl.Builder());
-    ICompositionController<INote> controller = new CompositeController(model, views);
+    ICompositionController<INote> controller = new CompositeController(model, viewgui);
     controller.constructView();
     controller.displayView();
 

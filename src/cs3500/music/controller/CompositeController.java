@@ -66,7 +66,6 @@ public class CompositeController implements ICompositionController<INote> {
         model.removeNote(n);
       }
     }
-
     this.view.recompose(this.model);
   }
 }
