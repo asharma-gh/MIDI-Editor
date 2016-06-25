@@ -1,4 +1,4 @@
-package cs3500.music.view;
+package cs3500.music.controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

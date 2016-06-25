@@ -1,28 +1,21 @@
-package cs3500.music.view;
+package cs3500.music.controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.PaintEvent;
-import java.util.List;
-import java.util.Map;
 
-import cs3500.music.controller.ICompositionController;
 import cs3500.music.model.INote;
-import cs3500.music.model.MusicModel;
+import cs3500.music.view.GuiView;
 
-/**
- * To represent a MouseClickListener
- */
-public class MouseClickListener implements MouseListener {
+public class RemoveNoteOnClickListener implements MouseListener {
   private ICompositionController<INote> controller;
   private GuiView<INote> view;
 
-  public MouseClickListener() {
+  public RemoveNoteOnClickListener() {
 
   }
 
   /**
-   * Adds the given model to this mouse click Listener
+   * Adds the given model to this MouseListener
    */
   public void addControllerAndView(ICompositionController<INote> controller, GuiView<INote> view) {
     this.controller = controller;

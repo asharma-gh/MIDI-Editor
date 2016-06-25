@@ -42,11 +42,7 @@ public class GuiViewFrame extends javax.swing.JFrame
   }
   @Override
   public void updatePause() {
-    if (isPaused) {
-      isPaused = false;
-    } else {
-      isPaused = true;
-    }
+    isPaused = !isPaused;
   }
 
   @Override
@@ -128,8 +124,7 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void scrollY(int y) {
-    this.scroll.getVerticalScrollBar().setValue(this.scroll.getVerticalScrollBar().getValue() + y);
-    //sby.setValue(sby.getValue() + y);
+    sby.setValue(sby.getValue() + y);
   }
 
   @Override

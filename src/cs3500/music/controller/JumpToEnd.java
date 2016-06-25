@@ -1,6 +1,7 @@
-package cs3500.music.view;
+package cs3500.music.controller;
 
 import cs3500.music.model.INote;
+import cs3500.music.view.GuiView;
 
 /**
  * A runnable class that jumps to the end of a given gui view.

@@ -5,8 +5,6 @@ import org.junit.Test;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import cs3500.music.view.KeyboardHandler;
-
 import static org.junit.Assert.*;
 
 /**
@@ -14,18 +12,6 @@ import static org.junit.Assert.*;
  */
 public class KeyboardHandlerTest {
   private boolean hasRun = false;
-
-  /**
-   * To represent a mock runnable object for testing the KeyHandler
-   */
-  private class MockRunnable implements Runnable {
-
-    public void run() {
-      KeyboardHandlerTest.this.hasRun = true;
-    }
-
-  }
-
   private KeyboardHandler kh;
   private Component sc;
   private KeyEvent ke;
@@ -77,5 +63,19 @@ public class KeyboardHandlerTest {
     assertFalse(hasRun);
     kh.keyReleased(ke);
     assertTrue(hasRun);
+  }
+
+  /**
+   * To represent a mock runnable object for testing the KeyHandler
+   */
+  private class MockRunnable implements Runnable {
+    private MockRunnable() {
+      KeyboardHandlerTest.this.hasRun = false;
+    }
+
+    public void run() {
+      KeyboardHandlerTest.this.hasRun = true;
+    }
+
   }
 }

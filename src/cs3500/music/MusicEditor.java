@@ -23,9 +23,7 @@ public class MusicEditor {
    * @param args should take two arguments, first the desired file, second the desired view type.
    */
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
-    ICompositionView<Note> view = ViewBuilder.build(args[1]);
     GuiView<INote> viewgui = new CompositionView(new GuiViewFrame(), new MidiViewImpl());
-    GuiView<INote> views = new GuiViewFrame();
     FileInputStream file = new FileInputStream(args[0]);
     MusicModel<INote> model = MusicReader.parseFile(new BufferedReader(
                     new InputStreamReader(file)),
