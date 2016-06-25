@@ -179,16 +179,28 @@ public class GuiViewFrame extends javax.swing.JFrame
 
     }
 
+    /**
+     * Set the notes in the view to the new list of notes. Repaints to update.
+     * @param notes the new list of notes
+     */
     protected void setNotes(java.util.List<INote> notes) {
       this.notes = notes;
       this.repaint();
     }
 
+    /**
+     * Set the max beat for the view. Repaints to update.
+     * @param beat the max beat
+     */
     protected void setMaxBeat(int beat) {
       this.maxBeat = beat;
       this.repaint();
     }
 
+    /**
+     * Set the pitches for the pitch list to the new list of pitches. Repaints to update.
+     * @param pitches the new list of pitches
+     */
     protected void setPitches(java.util.List<String> pitches) {
       this.pitches = pitches;
       this.numPitches = pitches.size();
@@ -261,6 +273,10 @@ public class GuiViewFrame extends javax.swing.JFrame
       this.setPreferredSize(new Dimension(25, (pitches.size() + 1) * 15));
     }
 
+    /**
+     * Set the pitches for the pitch list to the new list of pitches
+     * @param pitches the new list of pitches
+     */
     protected void setPitches(java.util.List<String> pitches) {
       this.pitches = pitches;
     }
