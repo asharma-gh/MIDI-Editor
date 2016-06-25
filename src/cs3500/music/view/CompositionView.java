@@ -34,8 +34,6 @@ public class CompositionView implements GuiView<INote> {
 
   private void beginPlayback() {
     this.gui.setFocusable(true);
-      this.gui.gibSequencerPls((int) (midi.sequencer.getTickPosition() * 15) / 16);
-
   }
 
   @Override
@@ -48,13 +46,13 @@ public class CompositionView implements GuiView<INote> {
   }
 
   @Override
-  public void updateHorizontalScroll(int pos) {
-    this.gui.updateHorizontalScroll(pos);
+  public void updateScroll() {
+    this.gui.updateScroll();
   }
 
   @Override
-  public void updateLine(int pos) {
-    this.gui.updateLine(pos);
+  public void linePosition(int pos) {
+    this.gui.linePosition(pos);
   }
 
   @Override
@@ -106,20 +104,23 @@ public class CompositionView implements GuiView<INote> {
   }
 
   @Override
-  public void refresh() {
-    this.gui.refresh();
-  }
-
-  @Override
   public void setNotes(List<INote> notes) {
     this.gui.setNotes(notes);
   }
 
+  @Override
+  public void jumpToStart() {
+    this.gui.jumpToStart();
+  }
+
+  /**
+   * to represent movement of a red line every beat
+   */
   private class SynchronizeLineAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-      CompositionView.this.gui.gibSequencerPls((int) (midi.sequencer.getTickPosition() * 15) / 16);
+      CompositionView.this.gui.linePosition((int) ((midi.sequencer.getTickPosition() + 1) * 15) / 16);
     }
   }
 }

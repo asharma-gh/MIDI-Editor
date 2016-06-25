@@ -1,5 +1,8 @@
 package cs3500.music.controller;
 
+import java.awt.event.MouseEvent;
+import java.util.List;
+
 import cs3500.music.model.INote;
 import cs3500.music.model.MusicModel;
 import cs3500.music.model.Note;
@@ -36,12 +39,36 @@ public class CompositeController implements ICompositionController<INote> {
   public void constructView() {
     this.view.buildComposition(model);
     this.mcl = new MouseClickListener();
-    this.mcl.addModelAndView(this.model, this.view);
+    this.mcl.addModelAndView(this);
     this.view.setMouseListener(mcl);
   }
 
   @Override
   public void displayView() {
     this.view.displayComposition();
+  }
+
+  @Override
+  public void removeNote(int x, int y) {
+    System.out.println(model.getComposition());
+    int xPos = ((x + 15 - (x % 15)) / 15) - 1;
+    int yPos = y + 15 - (y % 15);
+    int counter = (model.pitchRangeAsList().size() + 1) * 15;
+    String pitch = "";
+    for (int i = 0; i < model.pitchRangeAsList().size(); i++) {
+      if (yPos == counter) {
+        pitch = model.pitchRangeAsList().get(i);
+      }
+      counter -= 15;
+    }
+    List<INote> oldNotes = model.getComposition();
+    for (INote n : oldNotes) {
+      if (n.getStartingBeat() == xPos && (n.getPitch().toString() + n.getOctave()).equals(pitch)) {
+        model.removeNote(n);
+      }
+    }
+
+    System.out.println(model.getComposition());
+    this.view.setNotes(this.model.getComposition());
   }
 }

@@ -14,6 +14,7 @@ public class JumpToStart implements Runnable {
 
   @Override
   public void run() {
-    view.updateHorizontalScroll(0);
+    System.out.println("fuck");
+    view.jumpToStart();
   }
 }

@@ -20,4 +20,10 @@ public interface ICompositionController<K> {
    * EFFECT: call the view to display the composition
    */
   void displayView();
+
+  /**
+   * instructs the model to removes the note at the given coordinates
+   */
+  void removeNote(int x, int y);
+
 }

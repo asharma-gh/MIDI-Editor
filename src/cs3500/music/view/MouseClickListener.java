@@ -6,6 +6,7 @@ import java.awt.event.PaintEvent;
 import java.util.List;
 import java.util.Map;
 
+import cs3500.music.controller.ICompositionController;
 import cs3500.music.model.INote;
 import cs3500.music.model.MusicModel;
 
@@ -13,8 +14,7 @@ import cs3500.music.model.MusicModel;
  * To represent a MouseClickListener
  */
 public class MouseClickListener implements MouseListener {
-  private MusicModel<INote> model;
-  private GuiView<INote> view;
+  private ICompositionController<INote> controller;
 
   public MouseClickListener() {
 
@@ -23,34 +23,13 @@ public class MouseClickListener implements MouseListener {
   /**
    * Adds the given model to this mouse click Listener
    */
-  public void addModelAndView(MusicModel<INote> model, GuiView<INote> view) {
-    this.model = model;
-    this.view = view;
+  public void addModelAndView(ICompositionController<INote> controller) {
+    this.controller = controller;
   }
 
   @Override
   public void mouseClicked(MouseEvent e) {
-    System.out.println(model.getComposition());
-    if (MouseEvent.BUTTON1 == e.getButton()) {
-      int xPos = ((e.getX() + 15 - (e.getX() % 15)) / 15) - 1;
-      int yPos = e.getY() + 15 - (e.getY() % 15);
-      int counter = (model.pitchRangeAsList().size() + 1) * 15;
-      String pitch = "";
-      for (int i = 0; i < model.pitchRangeAsList().size(); i++) {
-        if (yPos == counter) {
-          pitch = model.pitchRangeAsList().get(i);
-        }
-        counter -= 15;
-      }
-      List<INote> oldNotes = model.getComposition();
-      for (INote n : oldNotes) {
-        if (n.getStartingBeat() == xPos && (n.getPitch().toString() + n.getOctave()).equals(pitch)) {
-          model.removeNote(n);
-        }
-      }
-    }
-    System.out.println(model.getComposition());
-    this.view.setNotes(this.model.getComposition());
+    this.controller.removeNote(e.getX(), e.getY());
   }
 
   @Override

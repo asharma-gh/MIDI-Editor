@@ -34,4 +34,9 @@ public class ControllerImpl implements ICompositionController<Note> {
     view.displayComposition();
   }
 
+  @Override
+  public void removeNote(int x, int y) {
+
+  }
+
 }

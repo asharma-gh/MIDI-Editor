@@ -61,12 +61,13 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   }
 
-  public void gibSequencerPls(int s) {
+  @Override
+  public void linePosition(int s) {
     this.shift = s;
   }
+
   @Override
-  public void updateHorizontalScroll(int pos) {
-    System.out.println(this.notePanel.shift);
+  public void updateScroll() {
     if (this.notePanel.shift % (this.sb.getWidth() - 45) < 15) {
       sb.setValue(this.notePanel.shift);
       System.out.println("made it ");
@@ -74,8 +75,9 @@ public class GuiViewFrame extends javax.swing.JFrame
   }
 
   @Override
-  public void updateLine(int pos) {
-
+  public void jumpToStart() {
+    sb.setValue(0);
+    System.out.println("yes");
   }
 
   @Override
@@ -83,10 +85,6 @@ public class GuiViewFrame extends javax.swing.JFrame
     return this.maxBeats * 15;
   }
 
-  @Override
-  public void refresh() {
-    this.notePanel.repaint();
-  }
 
   @Override
   public void buildComposition(MusicModelObserver<INote> model) {
@@ -174,7 +172,7 @@ public class GuiViewFrame extends javax.swing.JFrame
       super.paintComponent(g);
       this.generateGrid(g);
       if (!isPaused) {
-        GuiViewFrame.this.updateHorizontalScroll(3);
+        GuiViewFrame.this.updateScroll();
         this.shift = GuiViewFrame.this.shift;
       }
 

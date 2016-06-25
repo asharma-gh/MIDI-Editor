@@ -12,11 +12,10 @@ import java.util.List;
 public interface GuiView<K> extends ICompositionView<K> {
 
   /**
-   * Updates the view such that it pans based on the given value
+   * Updates the view such that it scrolls once the red line is off the screen
    */
-  void updateHorizontalScroll(int pos);
+  void updateScroll();
 
-  void updateLine(int pos);
 
   int getWidth();
 
@@ -29,11 +28,6 @@ public interface GuiView<K> extends ICompositionView<K> {
   void resumePlayback();
 
   /**
-   * refreshes the contents of this gui view
-   */
-  void refresh();
-
-  /**
    * Sets the notes to display in this GUI
    */
   void setNotes(List<K> notes);
@@ -43,5 +37,14 @@ public interface GuiView<K> extends ICompositionView<K> {
 
   void scrollY(int y);
 
+  void jumpToStart();
+
   void updatePause();
+
+  /**
+   * Sets the position of this line
+   *
+   * @param pos the new position of the red line
+   */
+  void linePosition(int pos);
 }
