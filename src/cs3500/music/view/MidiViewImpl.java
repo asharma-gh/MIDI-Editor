@@ -1,5 +1,6 @@
 package cs3500.music.view;
 
+import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import cs3500.music.model.Note;
 // made sequencer protected
 public class MidiViewImpl implements ICompositionView<INote> {
   protected final Sequencer sequencer;
+  protected Sequence sequence;
   private int tempo;
 
   /**
@@ -27,6 +29,7 @@ public class MidiViewImpl implements ICompositionView<INote> {
     try {
       seq = MidiSystem.getSequencer();
       seq.open();
+      this.sequence = new Sequence(Sequence.PPQ, 16);
     } catch (Exception e) {
       seq = null;
       e.printStackTrace();
@@ -52,7 +55,6 @@ public class MidiViewImpl implements ICompositionView<INote> {
   @Override
   public void displayComposition() {
     this.sequencer.start();
-    this.setSequencerTempo(this.tempo);
   }
 
   /**
@@ -73,10 +75,16 @@ public class MidiViewImpl implements ICompositionView<INote> {
       throw new IllegalArgumentException("There is no composition to play!");
     }
     try {
-      Sequence sequence = new Sequence(Sequence.PPQ, 16);
-      Track track = sequence.createTrack();
+      Track track = this.sequence.createTrack();
       int channel = 0;
       int curInstr = composition.get(0).getInstrumentMIDI();
+      byte[] tempoBytes = new byte[] {
+              (byte)(model.getTempo() >>> 16),
+              (byte)(model.getTempo() >>> 8),
+              (byte)model.getTempo()};
+      MetaMessage setTempo = new MetaMessage();
+      setTempo.setMessage(0x51, tempoBytes, 3);
+      track.add(new MidiEvent(setTempo, 0));
       MidiMessage instrChange = new ShortMessage(
               ShortMessage.PROGRAM_CHANGE, channel, curInstr, 0);
       track.add(new MidiEvent(instrChange,
@@ -99,7 +107,7 @@ public class MidiViewImpl implements ICompositionView<INote> {
         track.add(new MidiEvent(new ShortMessage(
                 ShortMessage.NOTE_OFF, channel, pitchToMidiValue, 64), stopBeat));
       }
-      this.sequencer.setSequence(sequence);
+      this.sequencer.setSequence(this.sequence);
     } catch (InvalidMidiDataException e) {
       e.printStackTrace();
     }
