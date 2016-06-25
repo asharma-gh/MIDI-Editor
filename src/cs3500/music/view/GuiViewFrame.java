@@ -67,7 +67,7 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void updateScroll() {
-    if (this.notePanel.shift % (this.sb.getWidth()) - 45 < 15 && this.notePanel.shift > this.sb.getWidth()) {
+    if (this.notePanel.shift > this.sb.getWidth() && this.notePanel.shift % (this.sb.getWidth()) - 45 < 15) {
       sb.setValue(this.notePanel.shift);
     }
   }

@@ -1,11 +1,8 @@
 package cs3500.music;
 
 import cs3500.music.controller.CompositeController;
-import cs3500.music.controller.ControllerImpl;
 import cs3500.music.controller.ICompositionController;
-import cs3500.music.mock.MidiMockTracer;
 import cs3500.music.model.*;
-import cs3500.music.mock.MidiMockDevice;
 import cs3500.music.util.MusicReader;
 import cs3500.music.view.*;
 
