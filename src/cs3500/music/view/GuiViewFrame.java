@@ -51,7 +51,7 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void updateHorizontalScroll(int pos) {
-    if (pos % (this.getWidth() - 45) == 0) {
+    if (pos % (this.sb.getWidth() - 45) == 0) {
       sb.setValue(pos);
     }
     this.repaint();
@@ -118,7 +118,7 @@ public class GuiViewFrame extends javax.swing.JFrame
       this.numPitches = pitches.size();
       this.maxBeat = maxBeat;
       this.setPreferredSize(new Dimension(maxBeat * 15, (numPitches) * 15));
-
+      this.setFocusable(true);
     }
 
     @Override

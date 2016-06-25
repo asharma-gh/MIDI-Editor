@@ -2,6 +2,7 @@ package cs3500.music.tests;
 
 import org.junit.Test;
 
+import cs3500.music.model.INote;
 import cs3500.music.model.MusicModel;
 import cs3500.music.model.MusicModelImpl;
 import cs3500.music.model.Note;
@@ -13,8 +14,8 @@ import static org.junit.Assert.*;
  * Test class used to ensure correctness of the MusicModelImpl class.
  */
 public class MusicModelImplTest {
-  MusicModel<Note> model;
-  MusicModel<Note> modelTwo;
+  MusicModel<INote> model;
+  MusicModel<INote> modelTwo;
   Note bOne;
   Note bOneC;
   Note bTwo;
@@ -79,7 +80,7 @@ public class MusicModelImplTest {
     model.interweaveMusic(modelTwo);
     assertEquals(6, model.getComposition().size());
     assertEquals(3, modelTwo.getComposition().size());
-    for (Note n : modelTwo.getComposition()) {
+    for (INote n : modelTwo.getComposition()) {
       assertTrue(model.getComposition().contains(n));
     }
   }
@@ -96,7 +97,7 @@ public class MusicModelImplTest {
     assertEquals(3, model.getComposition().size());
     assertEquals(3, modelTwo.getComposition().size());
     model.extendMusic(modelTwo);
-    for (Note n : modelTwo.getComposition()) {
+    for (INote n : modelTwo.getComposition()) {
       assertTrue(model.getComposition().contains(
               new Note(n.getPitch(), n.getOctave(), n.getDuration(), n.getStartingBeat() + 7)));
     }

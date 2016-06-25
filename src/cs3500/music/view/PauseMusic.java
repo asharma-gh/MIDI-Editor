@@ -1,7 +1,6 @@
 package cs3500.music.view;
 
 import cs3500.music.model.INote;
-import cs3500.music.view.MidiViewImpl;
 
 /**
  * Created by nbuqu on 6/24/2016.

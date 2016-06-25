@@ -1,5 +1,6 @@
 package cs3500.music;
 
+import cs3500.music.controller.CompositeController;
 import cs3500.music.controller.ControllerImpl;
 import cs3500.music.controller.ICompositionController;
 import cs3500.music.mock.MidiMockTracer;
@@ -23,11 +24,12 @@ public class MusicEditor {
    */
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
     ICompositionView<Note> view = ViewBuilder.build(args[1]);
+    GuiView<INote> viewgui = new CompositionView(new GuiViewFrame(), new MidiViewImpl());
     FileInputStream file = new FileInputStream(args[0]);
-    MusicModel<Note> model = MusicReader.parseFile(new BufferedReader(
+    MusicModel<INote> model = MusicReader.parseFile(new BufferedReader(
                     new InputStreamReader(file)),
             new MusicModelImpl.Builder());
-    ICompositionController<Note> controller = new ControllerImpl(model, view);
+    ICompositionController<INote> controller = new CompositeController(model, viewgui);
     controller.constructView();
     controller.displayView();
 

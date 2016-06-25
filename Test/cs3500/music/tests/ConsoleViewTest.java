@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
+import cs3500.music.model.INote;
 import cs3500.music.model.MusicModel;
 import cs3500.music.model.MusicModelImpl;
 import cs3500.music.model.Note;
@@ -24,8 +25,8 @@ import static org.junit.Assert.*;
  */
 public class ConsoleViewTest {
   ICompositionView view;
-  MusicModel<Note> mary;
-  MusicModel<Note> std;
+  MusicModel<INote> mary;
+  MusicModel<INote> std;
   ByteArrayOutputStream bytes;
   PrintStream output;
 

@@ -11,6 +11,7 @@ import java.util.List;
 
 import cs3500.music.mock.MidiMockDevice;
 import cs3500.music.mock.MidiMockTracer;
+import cs3500.music.model.INote;
 import cs3500.music.model.MusicModel;
 import cs3500.music.model.MusicModelImpl;
 import cs3500.music.model.Note;
@@ -26,8 +27,8 @@ import static org.junit.Assert.*;
  */
 public class MidiViewImplTest {
   private ICompositionView mview;
-  private MusicModel<Note> model;
-  private List<Note> shortComp;
+  private MusicModel<INote> model;
+  private List<INote> shortComp;
   private FileInputStream mary;
 
   void initData() {
@@ -40,7 +41,7 @@ public class MidiViewImplTest {
     }
     model = MusicReader.parseFile(new BufferedReader(
                     new InputStreamReader(mary)), new MusicModelImpl.Builder());
-    shortComp = new ArrayList<Note>();
+    shortComp = new ArrayList<INote>();
     shortComp.add(new Note(Pitch.A, 1, 5, 0));
     shortComp.add(new Note(Pitch.C, 1, 3, 5));
     shortComp.add(new Note(Pitch.B, 2, 5, 0, 64, 2));
@@ -178,7 +179,7 @@ public class MidiViewImplTest {
   public void testMidiViewNoFileOneNote() {
     MidiMockTracer.resetTrace();
     assertEquals("", MidiMockTracer.getTrace());
-    shortComp = new ArrayList<Note>();
+    shortComp = new ArrayList<INote>();
     shortComp.add(new Note(Pitch.C, 4, 2, 0, 60, 0));
     mview = new MidiViewImpl(new MidiMockDevice());
     mview.buildComposition(new MusicModelImpl(shortComp));

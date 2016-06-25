@@ -1,7 +1,7 @@
 package cs3500.music.view;
 
+
 import cs3500.music.model.INote;
-import cs3500.music.view.MidiViewImpl;
 
 /**
  * Created by nbuqu on 6/24/2016.
@@ -15,6 +15,7 @@ public class PlayMusic implements Runnable {
 
   @Override
   public void run() {
+    System.out.println("FUCK");
     try {
       this.view.resumePlayback();
     }

@@ -12,23 +12,24 @@ import cs3500.music.model.MusicModelObserver;
 public class CompositionView implements GuiView<INote> {
   private GuiViewFrame gui;
   private MidiViewImpl midi;
+  private int progress;
 
   public CompositionView(GuiViewFrame gui, MidiViewImpl midi) {
     this.gui = gui;
     this.midi = midi;
-
+    this.progress = 0;
   }
 
   @Override
   public void displayComposition() {
     this.gui.displayComposition();
     this.midi.displayComposition();
-    int scrollAmt = 0;
+    this.gui.setFocusable(true);
     while (midi.sequencer.isRunning()) {
-      while (scrollAmt < (int) midi.sequencer.getTickPosition() / 16 * 15) {
-        this.updateHorizontalScroll(scrollAmt);
-        this.updateLine(scrollAmt);
-        scrollAmt += 1;
+      while (this.progress < (int) midi.sequencer.getTickPosition() / 16 * 15) {
+        this.updateHorizontalScroll(this.progress);
+        this.updateLine(this.progress);
+        this.progress += 1;
       }
     }
   }
@@ -73,6 +74,6 @@ public class CompositionView implements GuiView<INote> {
 
   @Override
   public void resumePlayback() {
-    this.midi.sequencer.start();
+    this.displayComposition();
   }
 }

@@ -12,8 +12,8 @@ import cs3500.music.util.CompositionBuilder;
  * implements all of the desired features specified by the MusicModel interface.
  */
 // CHANGELOG: Made pitchRangeAsList public, added to interface
-public final class MusicModelImpl implements MusicModel<Note> {
-  private List<Note> composition;
+public final class MusicModelImpl implements MusicModel<INote> {
+  private List<INote> composition;
   // :: NEW :: a composition now has a tempo.
   private int tempo;
 
@@ -21,7 +21,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
    * Constructs a MusicModelImpl with a blank slate of notes.
    */
   public MusicModelImpl() {
-    this.composition = new ArrayList<Note>();
+    this.composition = new ArrayList<INote>();
     this.tempo = 0;
   }
 
@@ -30,7 +30,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
    *
    * @param composition the notes for this composition
    */
-  public MusicModelImpl(List<Note> composition) {
+  public MusicModelImpl(List<INote> composition) {
     this.composition = composition;
     this.tempo = 0;
   }
@@ -46,12 +46,12 @@ public final class MusicModelImpl implements MusicModel<Note> {
   }
 
   @Override
-  public void addNote(Note note) {
+  public void addNote(INote note) {
     this.composition.add(note);
   }
 
   @Override
-  public void removeNote(Note note) {
+  public void removeNote(INote note) {
     if (!this.composition.remove(note)) {
       throw new IllegalArgumentException("Note " + note.toString() + " does not exist in " +
               "the composition! Can not be removed.");
@@ -59,25 +59,25 @@ public final class MusicModelImpl implements MusicModel<Note> {
   }
 
   @Override
-  public void interweaveMusic(MusicModel<Note> composition) {
+  public void interweaveMusic(MusicModel<INote> composition) {
     this.composition.addAll(composition.getComposition());
   }
 
   @Override
-  public void extendMusic(MusicModel<Note> composition) {
-    List<Note> compositionToExtend = composition.getComposition();
+  public void extendMusic(MusicModel<INote> composition) {
+    List<INote> compositionToExtend = composition.getComposition();
     int extension = this.maxBeat();
-    for (Note n : compositionToExtend) {
-      Note noteCopy = new Note(n.getPitch(), n.getOctave(), n.getDuration(),
+    for (INote n : compositionToExtend) {
+      INote noteCopy = new Note(n.getPitch(), n.getOctave(), n.getDuration(),
               extension + n.getStartingBeat(), n.getVolume(), n.getInstrumentMIDI());
       this.composition.add(noteCopy);
     }
   }
 
   @Override
-  public List<Note> getCompositionAtBeat(int beat) {
-    List<Note> notesAtBeat = new ArrayList<Note>();
-    for (Note n : this.composition) {
+  public List<INote> getCompositionAtBeat(int beat) {
+    List<INote> notesAtBeat = new ArrayList<INote>();
+    for (INote n : this.composition) {
       if (n.getStartingBeat() <= beat && beat <= (n.getStartingBeat() + n.getDuration())) {
         notesAtBeat.add(n);
       }
@@ -86,8 +86,8 @@ public final class MusicModelImpl implements MusicModel<Note> {
   }
 
   @Override
-  public List<Note> getComposition() {
-    List<Note> compositionCopy = new ArrayList<Note>(this.composition);
+  public List<INote> getComposition() {
+    List<INote> compositionCopy = new ArrayList<INote>(this.composition);
     Collections.sort(compositionCopy, new NoteComparator());
     return compositionCopy;
   }
@@ -95,7 +95,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
   @Override
   public int maxBeat() {
     int maxSoFar = 0;
-    for (Note n : this.composition) {
+    for (INote n : this.composition) {
       if (n.getStartingBeat() + n.getDuration() > maxSoFar) {
         maxSoFar = n.getStartingBeat() + n.getDuration();
       }
@@ -108,7 +108,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
    *
    * @return the lowest tone note
    */
-  private Note findLowestTone() {
+  private INote findLowestTone() {
     return Collections.min(this.getComposition(), new NoteComparator());
   }
 
@@ -117,7 +117,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
    *
    * @return the highest tone note
    */
-  private Note findHighestTone() {
+  private INote findHighestTone() {
     return Collections.max(this.getComposition(), new NoteComparator());
   }
 
@@ -201,7 +201,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
       view += Integer.toString(beatSoFar);
       for (String s : pitchRangeAsList()) {
         boolean added = false;
-        for (Note n : this.composition) {
+        for (INote n : this.composition) {
           if (s.equals(n.toString())) {
             if (beatSoFar == n.getStartingBeat() && !added) {
               view += "  X  ";
@@ -209,7 +209,7 @@ public final class MusicModelImpl implements MusicModel<Note> {
             }
           }
         }
-        for (Note n : this.composition) {
+        for (INote n : this.composition) {
           if (s.equals(n.toString())) {
             if (n.getStartingBeat() < beatSoFar && !added
                     && beatSoFar <= (n.getStartingBeat() + n.getDuration())) {
@@ -247,28 +247,28 @@ public final class MusicModelImpl implements MusicModel<Note> {
    * Static builder class used to construct a MusicModel from text file input translated by
    * MusicReader
    */
-  public static final class Builder implements CompositionBuilder<MusicModel<Note>> {
-    private List<Note> compositionBuild;
+  public static final class Builder implements CompositionBuilder<MusicModel<INote>> {
+    private List<INote> compositionBuild;
     private int tempoBuild;
 
     public Builder() {
-      this.compositionBuild = new ArrayList<Note>();
+      this.compositionBuild = new ArrayList<INote>();
       this.tempoBuild = 0;
     }
 
     @Override
-    public MusicModel<Note> build() {
+    public MusicModel<INote> build() {
       return new MusicModelImpl(this);
     }
 
     @Override
-    public CompositionBuilder<MusicModel<Note>> setTempo(int tempo) {
+    public CompositionBuilder<MusicModel<INote>> setTempo(int tempo) {
       this.tempoBuild = tempo;
       return this;
     }
 
     @Override
-    public CompositionBuilder<MusicModel<Note>> addNote(int start, int end, int instrument,
+    public CompositionBuilder<MusicModel<INote>> addNote(int start, int end, int instrument,
                                                         int pitch, int volume) {
       this.compositionBuild.add(new Note(Pitch.integerToPitch(pitch),
               (int) (Math.floor(pitch / 12)) - 1,
