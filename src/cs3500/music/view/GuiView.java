@@ -48,9 +48,9 @@ public interface GuiView<K> extends ICompositionView<K> {
   void resumePlayback();
 
   /**
-   * recomposes the gui based on the given notes
+   * recomposes the gui based on the given model and notes
    */
-  void recompose(MusicModelObserver<K> model, List<K> notes);
+  void recompose(MusicModelObserver<K> model);
 
 
   /**
@@ -71,7 +71,7 @@ public interface GuiView<K> extends ICompositionView<K> {
   void jumpToStart();
 
   /**
-   * EFFECT: flips pause switch. Either on or not on.
+   * EFFECT: toggles pausing for this view
    */
   void updatePause();
 
@@ -81,5 +81,12 @@ public interface GuiView<K> extends ICompositionView<K> {
    * @param pos the new position of the red line
    */
   void linePosition(int pos);
+
+  /**
+   * outputs whether the given gui view is playing a composition currently
+   *
+   * @return true if this gui view is playing a composition currently
+   */
+  boolean isPlaying();
 
 }

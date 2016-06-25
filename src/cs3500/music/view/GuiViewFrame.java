@@ -57,6 +57,7 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.setSize(1200, (this.pitches.size() + 5) * 15);
     this.setVisible(true);
     mainPanel.setVisible(true);
+    this.setFocusable(true);
 
 
 
@@ -129,16 +130,21 @@ public class GuiViewFrame extends javax.swing.JFrame
   }
 
   @Override
-  public void recompose(MusicModelObserver<INote> model, java.util.List<INote> notes) {
+  public void recompose(MusicModelObserver<INote> model) {
     this.model = model;
-    this.notePanel.setNotes(notes);
+    this.notePanel.setNotes(this.model.getComposition());
     this.notePanel.removeAll();
-    this.notes = notes;
+    this.notes = this.model.getComposition();
     this.notePanel.shift = 0;
     if (!isPaused) {
       this.jumpToStart();
     }
     this.notePanel.repaint();
+  }
+
+  @Override
+  public boolean isPlaying() {
+    return this.isPaused;
   }
   /**
    * To represent the notes visualized
@@ -169,7 +175,6 @@ public class GuiViewFrame extends javax.swing.JFrame
     }
 
     protected void setNotes(java.util.List<INote> notes) {
-      System.out.println(this.notes.size() - notes.size());
       this.notes = notes;
       this.repaint();
     }

@@ -33,14 +33,13 @@ public class CompositeController implements ICompositionController<INote> {
     this.kbh.addPressedEvent(VK_DOWN, new ScrollDown(this.view));
     this.kbh.addPressedEvent(VK_UP, new ScrollUp(this.view));
     this.view.setKeyListener(kbh);
-
   }
 
   @Override
   public void constructView() {
     this.view.buildComposition(model);
     this.mcl = new MouseClickListener();
-    this.mcl.addModelAndView(this);
+    this.mcl.addControllerAndView(this, this.view);
     this.view.setMouseListener(mcl);
   }
 
@@ -68,6 +67,6 @@ public class CompositeController implements ICompositionController<INote> {
       }
     }
 
-    this.view.recompose(this.model, model.getComposition());
+    this.view.recompose(this.model);
   }
 }

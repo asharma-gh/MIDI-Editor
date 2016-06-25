@@ -15,6 +15,7 @@ import cs3500.music.model.MusicModel;
  */
 public class MouseClickListener implements MouseListener {
   private ICompositionController<INote> controller;
+  private GuiView<INote> view;
 
   public MouseClickListener() {
 
@@ -23,15 +24,17 @@ public class MouseClickListener implements MouseListener {
   /**
    * Adds the given model to this mouse click Listener
    */
-  public void addModelAndView(ICompositionController<INote> controller) {
+  public void addControllerAndView(ICompositionController<INote> controller, GuiView<INote> view) {
     this.controller = controller;
+    this.view = view;
   }
 
   @Override
   public void mouseClicked(MouseEvent e) {
-    if (e.getButton() == MouseEvent.BUTTON1) {
+    if (e.getButton() == MouseEvent.BUTTON1 && !view.isPlaying()) {
       this.controller.removeNote(e.getX(), e.getY());
     }
+
   }
 
   @Override

@@ -15,7 +15,6 @@ public class PlayMusic implements Runnable {
 
   @Override
   public void run() {
-    System.out.println("FUCK");
     try {
       this.view.resumePlayback();
     }

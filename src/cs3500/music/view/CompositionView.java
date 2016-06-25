@@ -19,11 +19,14 @@ public class CompositionView implements GuiView<INote> {
   private MidiViewImpl midi;
   private int progress;
   private Timer t;
-  private boolean noteDeleted = false;
+  private boolean noteDeleted;
+  private boolean isPlaying;
   public CompositionView(GuiViewFrame gui, MidiViewImpl midi) {
     this.gui = gui;
     this.midi = midi;
     this.progress = 0;
+    this.noteDeleted = false;
+    this.isPlaying = false;
   }
 
   @Override
@@ -31,10 +34,12 @@ public class CompositionView implements GuiView<INote> {
     this.gui.displayComposition();
     this.midi.displayComposition();
     this.beginPlayback();
+    this.isPlaying = true;
   }
 
   private void beginPlayback() {
     this.gui.setFocusable(true);
+    this.isPlaying = true;
   }
 
   @Override
@@ -43,6 +48,7 @@ public class CompositionView implements GuiView<INote> {
     this.midi.buildComposition(model);
     t = new Timer(midi.sequencer.getSequence().getResolution(), new SynchronizeLineAction());
     t.start();
+    this.isPlaying = true;
 
   }
 
@@ -73,6 +79,7 @@ public class CompositionView implements GuiView<INote> {
 
   @Override
   public void pausePlayback() {
+    this.isPlaying = false;
     if (this.midi.sequencer.isRunning()) {
       this.midi.sequencer.stop();
       this.gui.updatePause();
@@ -90,6 +97,7 @@ public class CompositionView implements GuiView<INote> {
       this.gui.jumpToStart();
     }
     noteDeleted = false;
+    this.isPlaying = true;
   }
 
   @Override
@@ -108,17 +116,23 @@ public class CompositionView implements GuiView<INote> {
   }
 
   @Override
-  public void recompose(MusicModelObserver<INote> model, List<INote> notes) {
+  public void recompose(MusicModelObserver<INote> model) {
     this.midi.buildComposition(model);
     t = new Timer(midi.sequencer.getSequence().getResolution(), new SynchronizeLineAction());
     t.start();
-    this.gui.recompose(model, notes);
+    this.gui.recompose(model);
     this.noteDeleted = true;
+
   }
 
   @Override
   public void jumpToStart() {
     this.gui.jumpToStart();
+  }
+
+  @Override
+  public boolean isPlaying() {
+    return this.isPlaying;
   }
 
   /**
