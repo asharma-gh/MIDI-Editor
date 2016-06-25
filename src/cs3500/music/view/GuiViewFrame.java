@@ -24,6 +24,7 @@ public class GuiViewFrame extends javax.swing.JFrame
   private int maxBeats;
   private JPanel mainPanel;
   private JScrollBar sb;
+  private JScrollBar sby;
   private NotePanel notePanel;
   /**
    * Creates new GuiView
@@ -37,6 +38,7 @@ public class GuiViewFrame extends javax.swing.JFrame
     JScrollPane scroll = new JScrollPane(mainPanel);
     scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
     sb = scroll.getHorizontalScrollBar();
+    sby = scroll.getVerticalScrollBar();
     mainPanel.setVisible(true);
     this.getContentPane().add(scroll);
     this.setSize(1200, (this.pitches.size() + 5) * 15);
@@ -101,6 +103,16 @@ public class GuiViewFrame extends javax.swing.JFrame
   @Override
   public void pausePlayback() {
     throw new UnsupportedOperationException("Pausing playback is not supported for GUI view.");
+  }
+
+  @Override
+  public void scrollX(int x) {
+    sb.setValue(sb.getValue() + x);
+  }
+
+  @Override
+  public void scrollY(int y) {
+    sby.setValue(sby.getValue() + y);
   }
 
   /**

@@ -73,13 +73,27 @@ public class CompositionView implements GuiView<INote> {
 
   @Override
   public void pausePlayback() {
-    this.midi.sequencer.stop();
+    if (this.midi.sequencer.isRunning()) {
+      this.midi.sequencer.stop();
+    }
   }
 
   @Override
   public void resumePlayback() {
-    this.midi.displayComposition();
-    this.beginPlayback();
+    if (!this.midi.sequencer.isRunning()) {
+      this.midi.displayComposition();
+      this.beginPlayback();
+    }
+  }
+
+  @Override
+  public void scrollX(int x) {
+    this.gui.scrollX(x);
+  }
+
+  @Override
+  public void scrollY(int y) {
+    this.gui.scrollY(y);
   }
 
   @Override

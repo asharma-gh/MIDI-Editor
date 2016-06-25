@@ -31,4 +31,8 @@ public interface GuiView<K> extends ICompositionView<K> {
    * refreshes the contents of this gui view
    */
   void refresh();
+
+  void scrollX(int x);
+
+  void scrollY(int y);
 }

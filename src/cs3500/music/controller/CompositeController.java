@@ -3,15 +3,7 @@ package cs3500.music.controller;
 import cs3500.music.model.INote;
 import cs3500.music.model.MusicModel;
 import cs3500.music.model.Note;
-import cs3500.music.view.CompositionView;
-import cs3500.music.view.GuiView;
-import cs3500.music.view.ICompositionView;
-import cs3500.music.view.JumpToEnd;
-import cs3500.music.view.JumpToStart;
-import cs3500.music.view.KeyboardHandler;
-import cs3500.music.view.MouseClickListener;
-import cs3500.music.view.PauseMusic;
-import cs3500.music.view.PlayMusic;
+import cs3500.music.view.*;
 
 import static java.awt.event.KeyEvent.*;
 
@@ -32,6 +24,10 @@ public class CompositeController implements ICompositionController<INote> {
     this.kbh.addPressedEvent(VK_END, new JumpToEnd(this.view));
     this.kbh.addPressedEvent(VK_P, new PauseMusic(this.view));
     this.kbh.addPressedEvent(VK_S, new PlayMusic(this.view));
+    this.kbh.addPressedEvent(VK_LEFT, new ScrollLeft(this.view));
+    this.kbh.addPressedEvent(VK_RIGHT, new ScrollRight(this.view));
+    this.kbh.addPressedEvent(VK_DOWN, new ScrollDown(this.view));
+    this.kbh.addPressedEvent(VK_UP, new ScrollUp(this.view));
     this.view.setKeyListener(kbh);
 
   }
