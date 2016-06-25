@@ -17,6 +17,7 @@ import cs3500.music.model.Note;
 // made sequencer protected
 public class MidiViewImpl implements ICompositionView<INote> {
   protected final Sequencer sequencer;
+  private int tempo;
 
   /**
    * Constructs a MidiView
@@ -31,6 +32,7 @@ public class MidiViewImpl implements ICompositionView<INote> {
       e.printStackTrace();
     }
     this.sequencer = seq;
+    this.tempo = 0;
   }
 
   /**
@@ -50,6 +52,7 @@ public class MidiViewImpl implements ICompositionView<INote> {
   @Override
   public void displayComposition() {
     this.sequencer.start();
+    this.setSequencerTempo(this.tempo);
   }
 
   /**
@@ -65,7 +68,7 @@ public class MidiViewImpl implements ICompositionView<INote> {
   public void buildComposition(MusicModelObserver<INote> model) {
     List<INote> composition = model.getComposition();
     Collections.sort(composition, new NoteComparatorForInstrument());
-    this.setSequencerTempo(model.getTempo());
+    this.tempo = model.getTempo();
     if (composition.size() == 0) {
       throw new IllegalArgumentException("There is no composition to play!");
     }

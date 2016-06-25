@@ -24,6 +24,10 @@ public class CompositionView implements GuiView<INote> {
   public void displayComposition() {
     this.gui.displayComposition();
     this.midi.displayComposition();
+    this.beginPlayback();
+  }
+
+  private void beginPlayback() {
     this.gui.setFocusable(true);
     while (midi.sequencer.isRunning()) {
       while (this.progress < (int) midi.sequencer.getTickPosition() / 16 * 15) {
@@ -74,6 +78,7 @@ public class CompositionView implements GuiView<INote> {
 
   @Override
   public void resumePlayback() {
-    this.displayComposition();
+    this.midi.displayComposition();
+    this.beginPlayback();
   }
 }

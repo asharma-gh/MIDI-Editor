@@ -59,6 +59,7 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void updateLine(int pos) {
+    this.repaint();
     notePanel.setShift(pos);
     this.repaint();
   }
