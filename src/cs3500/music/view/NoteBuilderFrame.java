@@ -6,9 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.*;
-
 import cs3500.music.controller.ICompositionController;
 import cs3500.music.model.INote;
 import cs3500.music.model.Pitch;
@@ -38,23 +36,30 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
     this.noteVars = new int[6];
   }
 
- /* private boolean validBuild() {
+  /**
+   * Ensures that there are valid inputs for each button. If there is not,
+   * the button does nothing.
+   * @return whether the user has given valid inputs for a note
+   */
+  private boolean validBuild() {
     try {
-      Integer.parseInt(octave.getText());
-      Integer.parseInt(duration.getText());
-      Integer.parseInt(startBeat.getText());
-      Integer.parseInt(volume.getText());
-      Integer.parseInt(instrument.getText());
-      return Integer.parseInt(octave.getText()) >= 0 &&
+      int oct = Integer.parseInt(octave.getText());
+      int dur = Integer.parseInt(duration.getText());
+      int start = Integer.parseInt(startBeat.getText());
+      int vol = Integer.parseInt(volume.getText());
+      int instr = Integer.parseInt(instrument.getText());
+      return oct >= 0 && dur >= 0 && start >= 0 && vol >= 0 && vol <= 400 &&
+              instr >= 0 && instr <= 127;
     }
     catch (Exception e) {
       return false;
     }
-  }*/
+  }
 
   /**
-   *
-   * @param controller
+   * EFFECT: creates a pop up window with an interface for creating notes
+   * If the fields given as input are not valid, the note will not be built.
+   * @param controller the controller through which the note will be built.
    */
   public void buildFrame(ICompositionController<INote> controller) {
     String[] pitches = new String[Pitch.values().length];
@@ -85,12 +90,14 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
       public void actionPerformed(ActionEvent e) {
         switch(e.getActionCommand()) {
           case "Build":
-            noteVars[1] = Integer.parseInt(octave.getText());
-            noteVars[2] = Integer.parseInt(duration.getText());
-            noteVars[3] = Integer.parseInt(startBeat.getText());
-            noteVars[4] = Integer.parseInt(volume.getText());
-            noteVars[5] = Integer.parseInt(instrument.getText());
-            controller.addNote(noteVars);
+            if (validBuild()) {
+              noteVars[1] = Integer.parseInt(octave.getText());
+              noteVars[2] = Integer.parseInt(duration.getText());
+              noteVars[3] = Integer.parseInt(startBeat.getText());
+              noteVars[4] = Integer.parseInt(volume.getText());
+              noteVars[5] = Integer.parseInt(instrument.getText());
+              controller.addNote(noteVars);
+            }
             break;
           default: System.err.print("This shouldn't happen");
             break;

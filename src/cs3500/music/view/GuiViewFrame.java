@@ -140,7 +140,8 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.pitchPanel.setPitches(model.pitchRangeAsList());
     this.notePanel.setPitches(model.pitchRangeAsList());
     this.notePanel.setMaxBeat(model.maxBeat());
-    this.mainPanel.setPreferredSize(new Dimension(1200, (this.pitches.size() + 5) * 15));
+    this.mainPanel.setPreferredSize(new Dimension(this.notePanel.getWidth(),
+            (this.pitches.size() + 5) * 15));
     this.revalidate();
     this.pitchPanel.repaint();
     this.notePanel.repaint();
