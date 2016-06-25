@@ -75,6 +75,7 @@ public class MidiViewImpl implements ICompositionView<INote> {
       throw new IllegalArgumentException("There is no composition to play!");
     }
     try {
+      this.sequence = new Sequence(Sequence.PPQ, 16);
       Track track = this.sequence.createTrack();
       int channel = 0;
       int curInstr = composition.get(0).getInstrumentMIDI();

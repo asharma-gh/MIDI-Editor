@@ -70,5 +70,6 @@ public class CompositeController implements ICompositionController<INote> {
 
     System.out.println(model.getComposition());
     this.view.setNotes(this.model.getComposition());
+    this.view.buildComposition(this.model);
   }
 }
