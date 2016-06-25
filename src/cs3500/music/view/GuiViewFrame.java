@@ -2,6 +2,7 @@ package cs3500.music.view;
 
 import java.awt.*;
 import java.awt.List;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener; // Possibly of interest for handling mouse events
 import java.util.*;
@@ -26,11 +27,22 @@ public class GuiViewFrame extends javax.swing.JFrame
   private JScrollBar sb;
   private JScrollBar sby;
   private NotePanel notePanel;
+  private MusicModelObserver<INote> model;
+  private int shift;
+  private boolean isPaused = false;
   /**
    * Creates new GuiView
    */
   public GuiViewFrame() {
     this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+  }
+  @Override
+  public void updatePause() {
+    if (isPaused) {
+      isPaused = false;
+    } else {
+      isPaused = true;
+    }
   }
 
   @Override
@@ -43,22 +55,32 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.getContentPane().add(scroll);
     this.setSize(1200, (this.pitches.size() + 5) * 15);
     this.setVisible(true);
+    shift = 0;
+
 
   }
 
+  @Override
+  public void paintComponents(Graphics g) {
+    if (!isPaused)
+      shift++;
+    updateHorizontalScroll(shift);
+    this.repaint();
+  }
 
   @Override
   public void updateHorizontalScroll(int pos) {
-    if (pos % (this.sb.getWidth() - 45) == 0) {
-      sb.setValue(pos);
+    if (this.shift % (this.sb.getWidth() - 45) == 0) {
+      sb.setValue(this.shift);
+      System.out.println("FuCk");
     }
     this.repaint();
   }
 
   @Override
   public void updateLine(int pos) {
-    this.repaint();
-    notePanel.setShift(pos);
+    shift++;
+    notePanel.setShift(shift);
     this.repaint();
   }
 
@@ -69,12 +91,12 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void refresh() {
-    this.mainPanel.repaint();
     this.notePanel.repaint();
   }
 
   @Override
   public void buildComposition(MusicModelObserver<INote> model) {
+    this.model = model;
     this.pitches = model.pitchRangeAsList();
     this.notes = model.getComposition();
     this.maxBeats = model.maxBeat();
@@ -115,6 +137,11 @@ public class GuiViewFrame extends javax.swing.JFrame
     sby.setValue(sby.getValue() + y);
   }
 
+  @Override
+  public void setNotes(java.util.List<INote> notes) {
+    this.notePanel.setNotes(notes);
+    this.notePanel.repaint();
+  }
   /**
    * To represent the notes visualized
    */
@@ -123,7 +150,7 @@ public class GuiViewFrame extends javax.swing.JFrame
     private java.util.List<String> pitches;
     private int numPitches;
     private int maxBeat;
-    private int shift;
+    protected int shift;
     /**
      * Construct a note panel
      *
@@ -139,17 +166,30 @@ public class GuiViewFrame extends javax.swing.JFrame
       this.maxBeat = maxBeat;
       this.setPreferredSize(new Dimension(maxBeat * 15, (numPitches) * 15));
       this.setFocusable(true);
+      this.shift = 0;
     }
 
+    protected void setNotes(java.util.List<INote> notes) {
+      this.notes = notes;
+    }
     @Override
     public void paintComponent(Graphics g) {
-      super.paintComponent(g);
-      this.generateGrid(g);
+      if (!isPaused) {
+        super.paintComponent(g);
+        this.generateGrid(g);
+        if (shift % 15 == 0)
+          this.shift += 15;
+        else
+          this.shift++;
+      }
+      this.repaint();
+
     }
 
     protected void setShift(int x) {
       this.shift = x;
       this.repaint();
+      System.out.println("change");
     }
 
     /**

@@ -2,6 +2,7 @@ package cs3500.music.view;
 
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import cs3500.music.model.INote;
 import cs3500.music.model.MusicModelObserver;
@@ -29,13 +30,6 @@ public class CompositionView implements GuiView<INote> {
 
   private void beginPlayback() {
     this.gui.setFocusable(true);
-    while (midi.sequencer.isRunning()) {
-      while (this.progress < (int) midi.sequencer.getTickPosition() / 16 * 15) {
-        this.updateHorizontalScroll(this.progress);
-        this.updateLine(this.progress);
-        this.progress += 1;
-      }
-    }
   }
 
   @Override
@@ -75,14 +69,17 @@ public class CompositionView implements GuiView<INote> {
   public void pausePlayback() {
     if (this.midi.sequencer.isRunning()) {
       this.midi.sequencer.stop();
+      this.gui.updatePause();
     }
   }
 
   @Override
   public void resumePlayback() {
     if (!this.midi.sequencer.isRunning()) {
-      this.midi.displayComposition();
+      this.midi.sequencer.start();
       this.beginPlayback();
+      this.gui.updatePause();
+      System.out.println("unpaused");
     }
   }
 
@@ -97,7 +94,17 @@ public class CompositionView implements GuiView<INote> {
   }
 
   @Override
+  public void updatePause() {
+    this.gui.updatePause();
+  }
+
+  @Override
   public void refresh() {
     this.gui.refresh();
+  }
+
+  @Override
+  public void setNotes(List<INote> notes) {
+    this.gui.setNotes(notes);
   }
 }

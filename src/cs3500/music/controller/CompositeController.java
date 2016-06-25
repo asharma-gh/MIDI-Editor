@@ -43,7 +43,5 @@ public class CompositeController implements ICompositionController<INote> {
   @Override
   public void displayView() {
     this.view.displayComposition();
-
-
   }
 }

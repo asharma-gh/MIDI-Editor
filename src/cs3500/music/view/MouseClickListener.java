@@ -50,7 +50,7 @@ public class MouseClickListener implements MouseListener {
       }
     }
     System.out.println(model.getComposition());
-    this.view.refresh();
+    this.view.setNotes(this.model.getComposition());
   }
 
   @Override

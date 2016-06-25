@@ -19,9 +19,11 @@ public class ViewBuilder {
     if (view.equals("console")) {
       return new ConsoleView();
     } else if (view.equals("visual")) {
-      return new CompositionView(new GuiViewFrame(), new MidiViewImpl());
+      return new GuiViewFrame();
     } else if (view.equals("midi")) {
       return new MidiViewImpl();
+    } else if (view.equals("combo")) {
+      return new CompositionView(new GuiViewFrame(), new MidiViewImpl());
     } else {
       throw new IllegalArgumentException("Unsupported view implementation");
     }

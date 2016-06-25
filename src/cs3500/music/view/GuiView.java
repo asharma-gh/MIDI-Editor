@@ -2,6 +2,7 @@ package cs3500.music.view;
 
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 /**
  * This interface represents additional functionality for the GUI view.
@@ -32,7 +33,15 @@ public interface GuiView<K> extends ICompositionView<K> {
    */
   void refresh();
 
+  /**
+   * Sets the notes to display in this GUI
+   */
+  void setNotes(List<K> notes);
+
+
   void scrollX(int x);
 
   void scrollY(int y);
+
+  void updatePause();
 }
