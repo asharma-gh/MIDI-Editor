@@ -73,7 +73,7 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
     this.pitchList = new JList<String>(pitches);
     MouseListener mouseListener = new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        if (e.getClickCount() == 2) {
+        if (e.getClickCount() == 1) {
           noteVars[0] = pitchList.locationToIndex(e.getPoint());
         }
       }
