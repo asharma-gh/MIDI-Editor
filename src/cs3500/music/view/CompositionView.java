@@ -30,12 +30,16 @@ public class CompositionView implements GuiView<INote> {
 
   private void beginPlayback() {
     this.gui.setFocusable(true);
+    while (midi.sequencer.isRunning()) {
+      this.gui.gibSequencerPls((int) (midi.sequencer.getTickPosition() * 15) / 16);
+    }
   }
 
   @Override
   public void buildComposition(MusicModelObserver<INote> model) {
     this.gui.buildComposition(model);
     this.midi.buildComposition(model);
+    this.gui.gibSequencerPls((int) (midi.sequencer.getTickPosition() * 15) / 16);
 
 
   }

@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener; // Possibly of interest for handling mouse events
 import java.util.*;
 
+import javax.sound.midi.Sequencer;
 import javax.swing.*;
 
 import cs3500.music.model.INote;
@@ -35,6 +36,7 @@ public class GuiViewFrame extends javax.swing.JFrame
    */
   public GuiViewFrame() {
     this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    this.shift = 0;
   }
   @Override
   public void updatePause() {
@@ -55,33 +57,25 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.getContentPane().add(scroll);
     this.setSize(1200, (this.pitches.size() + 5) * 15);
     this.setVisible(true);
-    shift = 0;
 
 
   }
 
-  @Override
-  public void paintComponents(Graphics g) {
-    if (!isPaused)
-      shift++;
-    updateHorizontalScroll(shift);
-    this.repaint();
+  public void gibSequencerPls(int s) {
+    this.shift = s;
   }
-
   @Override
   public void updateHorizontalScroll(int pos) {
-    if (this.shift % (this.sb.getWidth() - 45) == 0) {
-      sb.setValue(this.shift);
-      System.out.println("FuCk");
+    System.out.println(this.notePanel.shift);
+    if (this.notePanel.shift % (this.sb.getWidth() - 45) < 15) {
+      sb.setValue(this.notePanel.shift);
+      System.out.println("made it ");
     }
-    this.repaint();
   }
 
   @Override
   public void updateLine(int pos) {
-    shift++;
-    notePanel.setShift(shift);
-    this.repaint();
+
   }
 
   @Override
@@ -151,6 +145,7 @@ public class GuiViewFrame extends javax.swing.JFrame
     private int numPitches;
     private int maxBeat;
     protected int shift;
+    private int counter = 0;
     /**
      * Construct a note panel
      *
@@ -167,6 +162,8 @@ public class GuiViewFrame extends javax.swing.JFrame
       this.setPreferredSize(new Dimension(maxBeat * 15, (numPitches) * 15));
       this.setFocusable(true);
       this.shift = 0;
+      this.counter = 0;
+
     }
 
     protected void setNotes(java.util.List<INote> notes) {
@@ -174,23 +171,18 @@ public class GuiViewFrame extends javax.swing.JFrame
     }
     @Override
     public void paintComponent(Graphics g) {
+      super.paintComponent(g);
+      this.generateGrid(g);
       if (!isPaused) {
-        super.paintComponent(g);
-        this.generateGrid(g);
-        if (shift % 15 == 0)
-          this.shift += 15;
-        else
-          this.shift++;
+        GuiViewFrame.this.updateHorizontalScroll(3);
+        this.shift = GuiViewFrame.this.shift;
       }
+
       this.repaint();
+
 
     }
 
-    protected void setShift(int x) {
-      this.shift = x;
-      this.repaint();
-      System.out.println("change");
-    }
 
     /**
      * Generates the grid of notes, aligned to the pitches and labeled for each 16th beat.
