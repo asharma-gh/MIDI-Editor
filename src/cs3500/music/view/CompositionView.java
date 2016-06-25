@@ -59,12 +59,12 @@ public class CompositionView implements GuiView<INote> {
 
   @Override
   public void setKeyListener(KeyListener kl) {
-    this.gui.addKeyListener(kl);
+    this.gui.setKeyListener(kl);
   }
 
   @Override
   public void setMouseListener(MouseListener ml) {
-    this.gui.addMouseListener(ml);
+    this.gui.setMouseListener(ml);
   }
 
   @Override
@@ -75,5 +75,10 @@ public class CompositionView implements GuiView<INote> {
   @Override
   public void resumePlayback() {
     this.displayComposition();
+  }
+
+  @Override
+  public void refresh() {
+    this.gui.refresh();
   }
 }

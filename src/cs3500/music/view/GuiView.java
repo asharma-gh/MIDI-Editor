@@ -26,4 +26,9 @@ public interface GuiView<K> extends ICompositionView<K> {
   void pausePlayback();
 
   void resumePlayback();
+
+  /**
+   * refreshes the contents of this gui view
+   */
+  void refresh();
 }
