@@ -3,7 +3,7 @@ package cs3500.music.view;
 import cs3500.music.model.INote;
 
 /**
- * Created by nbuqu on 6/24/2016.
+ * A runnable class used to pause the given view of a composition
  */
 public class PauseMusic implements Runnable{
   GuiView<INote> view;
