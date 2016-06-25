@@ -27,7 +27,7 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     this.setLayout(new FlowLayout());
     this.instrument = new JTextField("Enter instrument here (0-127)");
-    this.octave = new JTextField("Enter octave here (0-99)");
+    this.octave = new JTextField("Enter octave here (0-10)");
     this.startBeat = new JTextField("Enter start beat here");
     this.duration = new JTextField("Enter duration of beat here");
     this.volume = new JTextField("Enter volume of beat here");
