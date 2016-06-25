@@ -42,17 +42,13 @@ public class GuiViewFrame extends javax.swing.JFrame
   }
   @Override
   public void updatePause() {
-    if (isPaused) {
-      isPaused = false;
-    } else {
-      isPaused = true;
-    }
+    isPaused = !isPaused;
   }
 
   @Override
   public void displayComposition() {
-    this.scroll = new JScrollPane(mainPanel);
-    this.scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
+    this.scroll = new JScrollPane(mainPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+    //  this.scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
     sb = scroll.getHorizontalScrollBar();
     sby = scroll.getVerticalScrollBar();
     this.getContentPane().add(scroll);
@@ -95,7 +91,6 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.notes = model.getComposition();
     this.maxBeats = model.maxBeat();
     this.mainPanel = new JPanel(new BorderLayout());
-    this.scroll = new JScrollPane(mainPanel);
     this.notePanel = new NotePanel(this.pitches, this.notes, maxBeats);
     this.pitchPanel = new PitchPanel(this.pitches);
     mainPanel.add(this.notePanel, BorderLayout.CENTER);
@@ -189,6 +184,8 @@ public class GuiViewFrame extends javax.swing.JFrame
 
     protected void setPitches(java.util.List<String> pitches) {
       this.pitches = pitches;
+      this.numPitches = pitches.size();
+      this.repaint();
     }
 
     @Override

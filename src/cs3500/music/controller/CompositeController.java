@@ -19,7 +19,7 @@ public class CompositeController implements ICompositionController<INote> {
   private GuiView<INote> view;
   private MusicModel<INote> model;
   private KeyboardHandler kbh;
-  private MouseClickListener mcl;
+  private RemoveNoteOnClickListener rcl;
 
   public CompositeController(MusicModel<INote> model, GuiView<INote> view) {
     this.view = view;
@@ -41,9 +41,9 @@ public class CompositeController implements ICompositionController<INote> {
   @Override
   public void constructView() {
     this.view.buildComposition(model);
-    this.mcl = new MouseClickListener();
-    this.mcl.addControllerAndView(this, this.view);
-    this.view.setMouseListener(mcl);
+    this.rcl = new RemoveNoteOnClickListener();
+    this.rcl.addControllerAndView(this, this.view);
+    this.view.setMouseListener(rcl);
   }
 
   @Override
