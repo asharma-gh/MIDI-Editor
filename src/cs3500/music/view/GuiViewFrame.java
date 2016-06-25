@@ -25,9 +25,11 @@ public class GuiViewFrame extends javax.swing.JFrame
   private java.util.List<INote> notes;
   private int maxBeats;
   private JPanel mainPanel;
+  private JScrollPane scroll;
   private JScrollBar sb;
   private JScrollBar sby;
   private NotePanel notePanel;
+  private PitchPanel pitchPanel;
   private MusicModelObserver<INote> model;
   private int shift;
   private boolean isPaused = false;
@@ -49,8 +51,8 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void displayComposition() {
-    JScrollPane scroll = new JScrollPane(mainPanel);
-    scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
+    this.scroll = new JScrollPane(mainPanel);
+    this.scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
     sb = scroll.getHorizontalScrollBar();
     sby = scroll.getVerticalScrollBar();
     this.getContentPane().add(scroll);
@@ -92,10 +94,12 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.pitches = model.pitchRangeAsList();
     this.notes = model.getComposition();
     this.maxBeats = model.maxBeat();
-    mainPanel = new JPanel(new BorderLayout());
+    this.mainPanel = new JPanel(new BorderLayout());
+    this.scroll = new JScrollPane(mainPanel);
     this.notePanel = new NotePanel(this.pitches, this.notes, maxBeats);
+    this.pitchPanel = new PitchPanel(this.pitches);
     mainPanel.add(this.notePanel, BorderLayout.CENTER);
-    mainPanel.add(new PitchPanel(this.pitches), BorderLayout.WEST);
+    mainPanel.add(this.pitchPanel, BorderLayout.WEST);
   }
 
   @Override
@@ -139,7 +143,11 @@ public class GuiViewFrame extends javax.swing.JFrame
     if (!isPaused) {
       this.jumpToStart();
     }
+    this.pitchPanel.setPitches(model.pitchRangeAsList());
+    this.notePanel.setPitches(model.pitchRangeAsList());
+    this.pitchPanel.repaint();
     this.notePanel.repaint();
+
   }
 
   @Override
@@ -178,6 +186,11 @@ public class GuiViewFrame extends javax.swing.JFrame
       this.notes = notes;
       this.repaint();
     }
+
+    protected void setPitches(java.util.List<String> pitches) {
+      this.pitches = pitches;
+    }
+
     @Override
     public void paintComponent(Graphics g) {
       super.paintComponent(g);
@@ -244,6 +257,9 @@ public class GuiViewFrame extends javax.swing.JFrame
       this.setPreferredSize(new Dimension(25, (pitches.size() + 1) * 15));
     }
 
+    protected void setPitches(java.util.List<String> pitches) {
+      this.pitches = pitches;
+    }
 
     @Override
     public void paintComponent(Graphics g) {

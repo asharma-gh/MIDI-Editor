@@ -6,6 +6,7 @@ import java.util.List;
 import cs3500.music.model.INote;
 import cs3500.music.model.MusicModel;
 import cs3500.music.model.Note;
+import cs3500.music.model.Pitch;
 import cs3500.music.view.*;
 
 import static java.awt.event.KeyEvent.*;
@@ -32,7 +33,9 @@ public class CompositeController implements ICompositionController<INote> {
     this.kbh.addPressedEvent(VK_RIGHT, new ScrollRight(this.view));
     this.kbh.addPressedEvent(VK_DOWN, new ScrollDown(this.view));
     this.kbh.addPressedEvent(VK_UP, new ScrollUp(this.view));
+    this.kbh.addPressedEvent(VK_1, new AddNote(this, this.view));
     this.view.setKeyListener(kbh);
+
   }
 
   @Override
@@ -66,6 +69,13 @@ public class CompositeController implements ICompositionController<INote> {
         model.removeNote(n);
       }
     }
+    this.view.recompose(this.model);
+  }
+
+  @Override
+  public void addNote(int[] vars) {
+    Note n = new Note(Pitch.integerToPitch(vars[0]), vars[1], vars[2], vars[3], vars[4], vars[5]);
+    this.model.addNote(n);
     this.view.recompose(this.model);
   }
 }

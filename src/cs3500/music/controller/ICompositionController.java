@@ -28,4 +28,11 @@ public interface ICompositionController<K> {
    */
   void removeNote(int x, int y);
 
+  /**
+   * constructs a new note based on the given vars and passes it to the model.
+   * recreates the view with the new note.
+   * @param vars the variables for the new note
+   */
+  void addNote(int[] vars);
+
 }

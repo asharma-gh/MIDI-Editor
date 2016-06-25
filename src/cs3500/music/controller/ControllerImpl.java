@@ -39,4 +39,9 @@ public class ControllerImpl implements ICompositionController<Note> {
 
   }
 
+  @Override
+  public void addNote(int[] vars) {
+
+  }
+
 }
