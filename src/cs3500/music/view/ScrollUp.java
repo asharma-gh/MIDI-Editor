@@ -3,7 +3,7 @@ package cs3500.music.view;
 import cs3500.music.model.INote;
 
 /**
- * Created by nbuqu on 6/24/2016.
+ * A runnable class that scrolls the view up 5 pixels every time it is run.
  */
 public class ScrollUp implements Runnable {
   private GuiView<INote> view;

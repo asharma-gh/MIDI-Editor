@@ -142,7 +142,6 @@ public class GuiViewFrame extends javax.swing.JFrame
     private int numPitches;
     private int maxBeat;
     protected int shift;
-    private int counter = 0;
     /**
      * Construct a note panel
      *
@@ -159,7 +158,6 @@ public class GuiViewFrame extends javax.swing.JFrame
       this.setPreferredSize(new Dimension(maxBeat * 15, (numPitches) * 15));
       this.setFocusable(true);
       this.shift = 0;
-      this.counter = 0;
 
     }
 

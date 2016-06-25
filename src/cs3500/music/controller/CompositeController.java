@@ -11,7 +11,8 @@ import cs3500.music.view.*;
 import static java.awt.event.KeyEvent.*;
 
 /**
- * Created by nbuqu on 6/24/2016.
+ * A composite controller used to control a view implementation with possibly
+ * both the midi and the gui active at the same time.
  */
 public class CompositeController implements ICompositionController<INote> {
   private GuiView<INote> view;

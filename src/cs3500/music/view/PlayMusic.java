@@ -4,7 +4,7 @@ package cs3500.music.view;
 import cs3500.music.model.INote;
 
 /**
- * Created by nbuqu on 6/24/2016.
+ * A runnable class that resumes playback on a given view of the composition
  */
 public class PlayMusic implements Runnable {
   private GuiView<INote> view;

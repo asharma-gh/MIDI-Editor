@@ -12,7 +12,7 @@ import cs3500.music.model.INote;
 import cs3500.music.model.MusicModelObserver;
 
 /**
- * To represent a view which combined the midi view and the gui view.
+ * To represent a view which combines the midi view and the gui view.
  */
 public class CompositionView implements GuiView<INote> {
   private GuiViewFrame gui;

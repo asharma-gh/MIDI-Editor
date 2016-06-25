@@ -3,7 +3,7 @@ package cs3500.music.view;
 import cs3500.music.model.INote;
 
 /**
- * Created by nbuqu on 6/24/2016.
+ * A runnable class that jumps to the beginning of a given gui view.
  */
 public class JumpToStart implements Runnable {
   private GuiView<INote> view;

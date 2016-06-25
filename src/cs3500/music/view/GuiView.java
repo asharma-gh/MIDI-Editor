@@ -17,14 +17,32 @@ public interface GuiView<K> extends ICompositionView<K> {
   void updateScroll();
 
 
+  /**
+   * Returns the width of the main panel
+   * @return the width of the main panel
+   */
   int getWidth();
 
+  /**
+   * Sets the key listener in the gui to the desired key listener
+   * @param kl a keylistener
+   */
   void setKeyListener(KeyListener kl);
 
+  /**
+   * Sets the mouse listener in the gui to the desired mouse listener
+   * @param ml a keylistener
+   */
   void setMouseListener(MouseListener ml);
 
+  /**
+   * Pauses the display of the composition.
+   */
   void pausePlayback();
 
+  /**
+   * Resumes display of the composition.
+   */
   void resumePlayback();
 
   /**
@@ -33,12 +51,26 @@ public interface GuiView<K> extends ICompositionView<K> {
   void setNotes(List<K> notes);
 
 
+  /**
+   * Scrolls the panel to the left or right by a given increment
+   * @param x how many pixels to scroll the panel by
+   */
   void scrollX(int x);
 
+  /**
+   * Scrolls the panel up or down by a given increment
+   * @param y how many pixels to scroll the panel by
+   */
   void scrollY(int y);
 
+  /**
+   * EFFECT: brings the display to the beginning of the composition
+   */
   void jumpToStart();
 
+  /**
+   * EFFECT: flips pause switch. Either on or not on.
+   */
   void updatePause();
 
   /**
