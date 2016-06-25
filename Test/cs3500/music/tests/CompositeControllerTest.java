@@ -1,10 +1,11 @@
-package cs3500.music.controller;
+package cs3500.music.tests;
 
 import org.junit.Test;
 
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 
+import cs3500.music.controller.CompositeController;
 import cs3500.music.model.INote;
 import cs3500.music.model.MusicModel;
 import cs3500.music.model.MusicModelImpl;

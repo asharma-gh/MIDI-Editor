@@ -48,7 +48,7 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
       int start = Integer.parseInt(startBeat.getText());
       int vol = Integer.parseInt(volume.getText());
       int instr = Integer.parseInt(instrument.getText());
-      return oct >= 0 && dur >= 0 && start >= 0 && vol >= 0 && vol <= 400 &&
+      return oct >= 0 && oct <= 10 && dur >= 0 && start >= 0 && vol >= 0 && vol <= 400 &&
               instr >= 0 && instr <= 127;
     }
     catch (Exception e) {
