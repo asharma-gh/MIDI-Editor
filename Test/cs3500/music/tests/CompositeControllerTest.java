@@ -18,7 +18,7 @@ import cs3500.music.view.GuiViewFrame;
 import static org.junit.Assert.*;
 
 /**
- * Created by Arvin on 6/25/2016.
+ * Test class for testing CompositeController
  */
 public class CompositeControllerTest {
   private GuiView<INote> view;

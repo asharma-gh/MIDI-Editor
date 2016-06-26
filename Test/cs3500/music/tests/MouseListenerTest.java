@@ -10,7 +10,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by Arvin on 6/25/2016.
+ * Test class for MouseListener.
  */
 public class MouseListenerTest {
 
