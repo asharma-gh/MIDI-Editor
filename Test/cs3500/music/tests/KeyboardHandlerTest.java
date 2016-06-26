@@ -25,7 +25,7 @@ public class KeyboardHandlerTest {
   }
 
   @Test
-  public void testRunnableDontRunWhenNotCorrectInput() {
+  public void testRunnablesDontRunWhenNotCorrectInput() {
     initData();
     kh.addPressedEvent(KeyEvent.VK_0, new MockRunnable());
     kh.addTypedEvent(KeyEvent.VK_0, new MockRunnable());
