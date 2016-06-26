@@ -26,8 +26,8 @@ public class GuiViewFrame extends javax.swing.JFrame
   private int maxBeats;
   private JPanel mainPanel;
   private JScrollPane scroll;
-  private JScrollBar sb;
-  private JScrollBar sby;
+  private JScrollBar horizontalsb;
+  private JScrollBar verticalsb;
   private NotePanel notePanel;
   private PitchPanel pitchPanel;
   private MusicModelObserver<INote> model;
@@ -51,8 +51,8 @@ public class GuiViewFrame extends javax.swing.JFrame
             ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     this.scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
     this.scroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-    sb = scroll.getHorizontalScrollBar();
-    sby = scroll.getVerticalScrollBar();
+    horizontalsb = scroll.getHorizontalScrollBar();
+    verticalsb = scroll.getVerticalScrollBar();
     this.getContentPane().add(scroll);
     this.setSize(1200, (this.pitches.size() + 5) * 15);
     this.setVisible(true);
@@ -67,14 +67,15 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void updateScroll() {
-    if (this.notePanel.shift > this.sb.getWidth() && this.notePanel.shift % (this.sb.getWidth()) - 45 < 15) {
-      sb.setValue(this.notePanel.shift);
+    if (this.notePanel.shift > this.horizontalsb.getWidth()
+            && this.notePanel.shift % (this.horizontalsb.getWidth()) - 45 < 15) {
+      horizontalsb.setValue(this.notePanel.shift);
     }
   }
 
   @Override
   public void jumpToStart() {
-    sb.setValue(0);
+    horizontalsb.setValue(0);
   }
 
   @Override
@@ -119,12 +120,12 @@ public class GuiViewFrame extends javax.swing.JFrame
 
   @Override
   public void scrollX(int x) {
-    sb.setValue(sb.getValue() + x);
+    horizontalsb.setValue(horizontalsb.getValue() + x);
   }
 
   @Override
   public void scrollY(int y) {
-    sby.setValue(sby.getValue() + y);
+    verticalsb.setValue(verticalsb.getValue() + y);
   }
 
   @Override

@@ -48,7 +48,7 @@ public interface GuiView<K> extends ICompositionView<K> {
   void resumePlayback();
 
   /**
-   * recomposes the gui based on the given model and notes
+   * recomposes the gui based on the given model
    */
   void recompose(MusicModelObserver<K> model);
 
