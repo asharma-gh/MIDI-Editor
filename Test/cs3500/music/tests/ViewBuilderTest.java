@@ -23,9 +23,6 @@ public class ViewBuilderTest {
     assertEquals(true, view instanceof MidiViewImpl);
     view = ViewBuilder.build("console");
     assertEquals(true, view instanceof ConsoleView);
-    view = ViewBuilder.build("visual");
-    assertEquals(true, view instanceof GuiViewFrame);
-
   }
 
   @Test (expected = IllegalArgumentException.class)

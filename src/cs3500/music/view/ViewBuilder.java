@@ -19,9 +19,6 @@ public class ViewBuilder {
     if (view.equals("console")) {
       return new ConsoleView();
     }
-    else if (view.equals("visual")) {
-      return new GuiViewFrame();
-    }
     else if (view.equals("midi")) {
       return new MidiViewImpl();
     }
