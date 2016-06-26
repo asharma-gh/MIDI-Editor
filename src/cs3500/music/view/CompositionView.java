@@ -17,14 +17,12 @@ import cs3500.music.model.MusicModelObserver;
 public class CompositionView implements GuiView<INote> {
   private GuiViewFrame gui;
   private MidiViewImpl midi;
-  private int progress;
   private Timer t;
   private boolean noteDeleted;
   private boolean isPlaying;
   public CompositionView(GuiViewFrame gui, MidiViewImpl midi) {
     this.gui = gui;
     this.midi = midi;
-    this.progress = 0;
     this.noteDeleted = false;
     this.isPlaying = false;
   }
