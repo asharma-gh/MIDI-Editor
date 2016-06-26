@@ -141,7 +141,8 @@ public class CompositionView implements GuiView<INote> {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-      CompositionView.this.gui.linePosition((int) ((midi.sequencer.getTickPosition() + 1) * 15) / 16);
+      CompositionView.this.gui.linePosition(
+              (int) ((midi.sequencer.getTickPosition() + 1) * 15) / 16);
     }
   }
 }

@@ -1,6 +1,5 @@
 package cs3500.music.controller;
 
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 import cs3500.music.model.INote;

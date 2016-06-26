@@ -1,9 +1,11 @@
-package cs3500.music.view;
+package cs3500.music.controller;
 
 import java.util.ArrayList;
 
 import cs3500.music.controller.ICompositionController;
 import cs3500.music.model.INote;
+import cs3500.music.view.GuiView;
+import cs3500.music.view.NoteBuilderFrame;
 
 /**
  * A runnable class used to add a note to the panel.
