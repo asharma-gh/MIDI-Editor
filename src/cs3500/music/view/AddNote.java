@@ -12,6 +12,12 @@ public class AddNote implements Runnable {
   private ICompositionController<INote> controller;
   private GuiView<INote> view;
 
+  /**
+   * Constructs an AddNote Runnable
+   *
+   * @param controller the controller to give the note information
+   * @param view       the view to retrieve the new note from
+   */
   public AddNote(ICompositionController<INote> controller, GuiView<INote> view) {
     this.controller = controller;
     this.view = view;

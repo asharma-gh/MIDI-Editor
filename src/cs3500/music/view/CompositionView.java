@@ -20,6 +20,7 @@ public class CompositionView implements GuiView<INote> {
   private Timer t;
   private boolean noteDeleted;
   private boolean isPlaying;
+
   public CompositionView(GuiViewFrame gui, MidiViewImpl midi) {
     this.gui = gui;
     this.midi = midi;

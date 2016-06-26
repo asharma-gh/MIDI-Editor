@@ -79,10 +79,10 @@ public class MidiViewImpl implements ICompositionView<INote> {
       Track track = this.sequence.createTrack();
       int channel = 0;
       int curInstr = composition.get(0).getInstrumentMIDI();
-      byte[] tempoBytes = new byte[] {
-              (byte)(model.getTempo() >>> 16),
-              (byte)(model.getTempo() >>> 8),
-              (byte)model.getTempo()};
+      byte[] tempoBytes = new byte[]{
+              (byte) (model.getTempo() >>> 16),
+              (byte) (model.getTempo() >>> 8),
+              (byte) model.getTempo()};
       MetaMessage setTempo = new MetaMessage();
       setTempo.setMessage(0x51, tempoBytes, 3);
       track.add(new MidiEvent(setTempo, 0));

@@ -33,6 +33,7 @@ public class GuiViewFrame extends javax.swing.JFrame
   private MusicModelObserver<INote> model;
   private int shift;
   private boolean isPaused = false;
+
   /**
    * Creates new GuiView
    */
@@ -40,6 +41,7 @@ public class GuiViewFrame extends javax.swing.JFrame
     this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     this.shift = 0;
   }
+
   @Override
   public void updatePause() {
     isPaused = !isPaused;
@@ -152,15 +154,17 @@ public class GuiViewFrame extends javax.swing.JFrame
   public boolean isPlaying() {
     return this.isPaused;
   }
+
   /**
    * To represent the notes visualized
    */
   private class NotePanel extends JPanel {
+    protected int shift;
     private java.util.List<INote> notes;
     private java.util.List<String> pitches;
     private int numPitches;
     private int maxBeat;
-    protected int shift;
+
     /**
      * Construct a note panel
      *
@@ -182,6 +186,7 @@ public class GuiViewFrame extends javax.swing.JFrame
 
     /**
      * Set the notes in the view to the new list of notes. Repaints to update.
+     *
      * @param notes the new list of notes
      */
     protected void setNotes(java.util.List<INote> notes) {
@@ -191,6 +196,7 @@ public class GuiViewFrame extends javax.swing.JFrame
 
     /**
      * Set the max beat for the view. Repaints to update.
+     *
      * @param beat the max beat
      */
     protected void setMaxBeat(int beat) {
@@ -200,6 +206,7 @@ public class GuiViewFrame extends javax.swing.JFrame
 
     /**
      * Set the pitches for the pitch list to the new list of pitches. Repaints to update.
+     *
      * @param pitches the new list of pitches
      */
     protected void setPitches(java.util.List<String> pitches) {
@@ -276,6 +283,7 @@ public class GuiViewFrame extends javax.swing.JFrame
 
     /**
      * Set the pitches for the pitch list to the new list of pitches
+     *
      * @param pitches the new list of pitches
      */
     protected void setPitches(java.util.List<String> pitches) {

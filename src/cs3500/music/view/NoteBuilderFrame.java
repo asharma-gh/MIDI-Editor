@@ -6,7 +6,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import javax.swing.*;
+
 import cs3500.music.controller.ICompositionController;
 import cs3500.music.model.INote;
 import cs3500.music.model.Pitch;
@@ -37,8 +39,9 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
   }
 
   /**
-   * Ensures that there are valid inputs for each button. If there is not,
-   * the button does nothing.
+   * Ensures that there are valid inputs for each button. If there is not, the button does
+   * nothing.
+   *
    * @return whether the user has given valid inputs for a note
    */
   private boolean validBuild() {
@@ -50,15 +53,15 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
       int instr = Integer.parseInt(instrument.getText());
       return oct >= 0 && oct <= 10 && dur >= 0 && start >= 0 && vol >= 0 && vol <= 127 &&
               instr >= 0 && instr <= 127;
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       return false;
     }
   }
 
   /**
-   * EFFECT: creates a pop up window with an interface for creating notes
-   * If the fields given as input are not valid, the note will not be built.
+   * EFFECT: creates a pop up window with an interface for creating notes If the fields given as
+   * input are not valid, the note will not be built.
+   *
    * @param controller the controller through which the note will be built.
    */
   public void buildFrame(ICompositionController<INote> controller) {
@@ -88,7 +91,7 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
     this.noteBuilder.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        switch(e.getActionCommand()) {
+        switch (e.getActionCommand()) {
           case "Build":
             if (validBuild()) {
               noteVars[1] = Integer.parseInt(octave.getText());
@@ -99,7 +102,8 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
               controller.addNote(noteVars);
             }
             break;
-          default: System.err.print("This shouldn't happen");
+          default:
+            System.err.print("This shouldn't happen");
             break;
         }
       }

@@ -18,8 +18,7 @@ public class PlayMusic implements Runnable {
   public void run() {
     try {
       this.view.resumePlayback();
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }

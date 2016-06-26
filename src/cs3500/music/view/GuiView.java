@@ -21,18 +21,21 @@ public interface GuiView<K> extends ICompositionView<K> {
 
   /**
    * Returns the width of the main panel
+   *
    * @return the width of the main panel
    */
   int getWidth();
 
   /**
    * Sets the key listener in the gui to the desired key listener
+   *
    * @param kl a keylistener
    */
   void setKeyListener(KeyListener kl);
 
   /**
    * Sets the mouse listener in the gui to the desired mouse listener
+   *
    * @param ml a keylistener
    */
   void setMouseListener(MouseListener ml);
@@ -55,12 +58,14 @@ public interface GuiView<K> extends ICompositionView<K> {
 
   /**
    * Scrolls the panel to the left or right by a given increment
+   *
    * @param x how many pixels to scroll the panel by
    */
   void scrollX(int x);
 
   /**
    * Scrolls the panel up or down by a given increment
+   *
    * @param y how many pixels to scroll the panel by
    */
   void scrollY(int y);
