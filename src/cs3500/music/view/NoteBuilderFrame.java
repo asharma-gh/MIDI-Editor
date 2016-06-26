@@ -28,9 +28,9 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
     this.setLayout(new FlowLayout());
     this.instrument = new JTextField("Enter instrument here (0-127)");
     this.octave = new JTextField("Enter octave here (0-10)");
-    this.startBeat = new JTextField("Enter start beat here");
-    this.duration = new JTextField("Enter duration of beat here");
-    this.volume = new JTextField("Enter volume of beat here");
+    this.startBeat = new JTextField("Enter start beat here (0-X)");
+    this.duration = new JTextField("Enter duration of beat here (0-X)");
+    this.volume = new JTextField("Enter volume of beat here (0-127)");
     this.noteBuilder = new JButton("Build");
     this.noteBuilder.setActionCommand("Build");
     this.noteVars = new int[6];
@@ -48,7 +48,7 @@ public class NoteBuilderFrame extends javax.swing.JFrame {
       int start = Integer.parseInt(startBeat.getText());
       int vol = Integer.parseInt(volume.getText());
       int instr = Integer.parseInt(instrument.getText());
-      return oct >= 0 && oct <= 10 && dur >= 0 && start >= 0 && vol >= 0 && vol <= 400 &&
+      return oct >= 0 && oct <= 10 && dur >= 0 && start >= 0 && vol >= 0 && vol <= 127 &&
               instr >= 0 && instr <= 127;
     }
     catch (Exception e) {
